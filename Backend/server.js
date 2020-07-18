@@ -18,14 +18,15 @@ app.use(
 app.use(cors());
 
 app.post("/submit", async (req, res) => {
+  console.log("got it");
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
       body.tipId = 0;
       const number = body.number;
       const name = body.name;
-      const doesUserExist = await userCheck(name, number);
-      if (!doesUserExist) {
+      // const doesUserExist = await userCheck(name, number);
+      if (true) {
         console.log("user dont exist");
         users.push(body);
         fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");

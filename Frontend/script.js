@@ -272,12 +272,17 @@ function logSubmit(event) {
     country: country,
   };
   if (number.length < 8 || name.length < 1) {
-    alert("Invalid input, please check");
   } else {
     try {
-      fetch("localhost:5000/submit", {
+      fetch("http://localhost:5000/submit", {
         method: "POST",
         body: JSON.stringify(obj),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+          "Access-Control-Max-Age": 2592000, // 30 days
+          /** add other headers as per requirement */
+        },
       });
     } catch (error) {
       console.log(error);

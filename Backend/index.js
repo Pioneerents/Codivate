@@ -1,7 +1,5 @@
-const codivate = require("./server")
+const codivate = require("./server");
 
-codivate.app.listen(5000, function() {
-    console.log(`Codivate is listening on port 7000!`);
-  });
-
-  
+codivate.app.listen(5000, function () {
+  console.log(`Codivate is listening on port 5000!`);
+});
