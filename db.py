@@ -1,4 +1,5 @@
 import boto3
+from boto3.dynamodb.conditions import Key
 
 # Create the table and the items/attributes asynchronously
 
@@ -31,7 +32,7 @@ class Client:
                         },
                         {
                             'AttributeName': 'number',
-                            'AttributeType': 'S'
+                            'AttributeType': 'N'
                         },
                     ],
                     ProvisionedThroughput={
@@ -64,6 +65,7 @@ class Client:
             print(f"Adding item: {data}")
         except Exception as e:
             print("Unable to add item: {data} into database!")
+            print(e)
 
     def get_item(self, table, primary_key):
         """Function to fetch and item from dynamoDB."""
@@ -76,3 +78,9 @@ class Client:
         except Exception as e:
             print(f"Item with primary key {primary_key} NOT FOUND!")
             return False
+
+    def get_keys(self, table, primary_key):
+        """Function takes in a primary key and returns a query"""
+        response = table.query(KeyConditionExpression=Key(primary_key))
+        items = response['items']
+        print(items)
