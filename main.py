@@ -108,41 +108,31 @@ def onboard_users():
         print(e)
 
 
-def onboard_quotes():
-    """Add users to the database"""
+def save_quotes():
+    """Add quotes to the database"""
     new_quotes = read_file("SoftwareTips.json")
     # Create the table
     db = setup_db_conn()
     quotes_table = db.create_table(
         "quotes", quotes_key_schema, quotes_attributes)
-    # db_items = db.get_all_items(quotes_table)
-    # pprint(db_items)
-    for quote in new_quotes:
-        print(quote)
-    # for item in db_items:
-    #     print(item)
-    #     send_message(SENDER, item['number'], message)
-    # Add the users
     try:
-        for user in new_quotes:
-            key = {"name": user['name'], "number": user['number']}
+        for i, item in enumerate(new_quotes):
+            key = {"tip_id": i}
             row = {
-                "name": user['name'], "number": user['number'],
-                "country": user['country'], "tip": user['tipId']
+                "tip_id": i, "body": item,
             }
-            name = user['name']
-            if db.get_item(users_table, {"name": user['name'], "number": user['number']}) is False:
-                print(f"Adding user: {name} to database")
-                db.add_item(users_table, row)
+            if db.get_item(quotes_table, {"tip_id": i}) is False:
+                print(f"Adding quote #{i} to database")
+                db.add_item(quotes_table, row)
     except Exception as e:
-        print("Unable to onboard users")
+        print("Unable to save quotes to database")
         print(e)
 
 
 def main():
     """Single entry point for application"""
-    onboard_users()
-    #onboard_quotes()
+    # onboard_users()
+    save_quotes()
     # key = {"name": cmd_args['name'], "number": cmd_args['number']}
     # validate_user(key)
 
