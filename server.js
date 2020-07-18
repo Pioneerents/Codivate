@@ -20,7 +20,8 @@ app.post("/submit", async (req, res) => {
     try {
       const body = JSON.parse(req.body);
       const number = body.number;
-      const doesUserExist = await userCheck(req.body);
+      const name = body.name;
+      const doesUserExist = await userCheck(name, number);
       if (!doesUserExist) {
         console.log("user dont exist");
         users.push(body);
@@ -36,15 +37,15 @@ app.post("/submit", async (req, res) => {
   }
 });
 
-function userCheck(payload) {
+function userCheck(name, number) {
   return new Promise((resolve, reject) => {
-    exec(`python somefile.py ${payload}`, (error, stdout, stderr) => {
+    exec(`python main.py ${name} ${number}`, (error, stdout, stderr) => {
       if (error) {
         console.log(error);
         reject(err);
       }
       if (stdout) {
-        if (stdout == "False") {
+        if (stdout == "1") {
           resolve(false);
           return false;
         } else {
