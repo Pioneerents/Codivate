@@ -42,12 +42,21 @@ class Client:
     def add_item(self, table, data):
         """Function that writes to an existing dynamoDB table"""
         try:
-            table.put_item(
-                Item=data
-            )
+            with table.batch_writer() as batch:
+                batch.put_item(Item=data)
             print(f"Adding item: {data}")
         except Exception as e:
             print("Unable to add item: {data} into database!")
+            print(e)
+
+    def delete_item(self, table, data):
+        """Function that writes to an existing dynamoDB table"""
+        try:
+            with table.batch_writer() as batch:
+                batch.delete_item(Item=data)
+            print(f"Deleting item: {data}")
+        except Exception as e:
+            print("Unable to delete item: {data} into database!")
             print(e)
 
     def get_item(self, table, primary_key):
