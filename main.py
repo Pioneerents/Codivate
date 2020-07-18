@@ -34,18 +34,19 @@ cmd_args = {
     "number": args.number
 }
 
-
-def read_file(file_name):
+def read_file(file_name, clear=False):
     """Function that parses a JSON file and fetches new entries"""
     try:
         with open(file_name, 'r') as f_obj:
             data = json.loads(f_obj.read())
+            # if clear:
+            #     f_obj.write(json.dumps([]))
     except FileNotFoundError as e:
         print(e)
     else:
         return data
 
-
+#TODO: test sending message from db data
 def setup_db_conn():
     """Initiate database connection"""
     try:
@@ -77,11 +78,8 @@ def onboard_users():
     users_table = db.create_table(
         TABLE_NAME, users_key_schema, users_attributes)
     db_items = db.get_all_items(users_table)
-    pprint(db_items)
-    # for item in db_items:
-    #     print(item)
-    #     send_message(SENDER, item['number'], message)
-    # Add the users
+
+    #Add the users
     try:
         for user in new_users:
             key = {"name": user['name'], "number": user['number']}
@@ -103,6 +101,8 @@ def onboard_users():
             tip_id = item['tip'] + 1
             if db.get_item(users_table, key) != False:
                 db.update_item(users_table, key, "tip", tip_id)
+
+        return db_items
     except Exception as e:
         print("Unable to onboard users")
         print(e)
@@ -128,11 +128,19 @@ def save_quotes():
         print("Unable to save quotes to database")
         print(e)
 
+def send_texts(rows):
+    quotes = read_file("SoftwareTips.json")
+    for item in rows:
+        tip_id = int(item['tip'])
+        message = quotes[tip_id]
+        if item['name'] == "Senna":
+            send_message(SENDER, item['number'], message)
 
 def main():
     """Single entry point for application"""
-    # onboard_users()
-    save_quotes()
+    rows = onboard_users()
+    send_texts(rows)
+    #save_quotes()
     # key = {"name": cmd_args['name'], "number": cmd_args['number']}
     # validate_user(key)
 
