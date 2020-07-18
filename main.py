@@ -89,11 +89,6 @@ def main():
     # onboard_users()
     key = {"name": cmd_args['name'], "number": cmd_args['number']}
     validate_user(key)
-    # Wait until the table exists.
-    # users_table.meta.client.get_waiter('table_exists').wait(TableName='codivate_users')
-    # # Print out some data about the table.
-    # print(users_table.item_count)
-
 
 if __name__ == "__main__":
     main()
