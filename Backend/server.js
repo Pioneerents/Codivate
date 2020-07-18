@@ -6,7 +6,7 @@ const fileLocation = `${__dirname}/codivate_local.json`;
 const userFile = fs.readFileSync(fileLocation, "utf8");
 const users = JSON.parse(userFile);
 const { exec } = require("child_process");
-var a = "";
+const cors = require("cors");
 
 app.use(
   bodyParser.text({
@@ -15,10 +15,13 @@ app.use(
   })
 );
 
+app.use(cors());
+
 app.post("/submit", async (req, res) => {
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
+      body.tipId = 0;
       const number = body.number;
       const name = body.name;
       const doesUserExist = await userCheck(name, number);
