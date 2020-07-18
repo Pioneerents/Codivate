@@ -25,8 +25,8 @@ app.post("/submit", async (req, res) => {
       body.tipId = 0;
       const number = body.number;
       const name = body.name;
-      // const doesUserExist = await userCheck(name, number);
-      if (true) {
+      const doesUserExist = await userCheck(name, number);
+      if (!doesUserExist) {
         console.log("user dont exist");
         users.push(body);
         fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");
