@@ -1,0 +1,24 @@
+{
+  "name": "codivate",
+  "version": "1.0.0",
+  "description": "Backend server for codivate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pioneerents/Codivate.git"
+  },
+  "author": "Mohamed Sheikh, Senna Semakula-Buuza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pioneerents/Codivate/issues"
+  },
+  "homepage": "https://github.com/Pioneerents/Codivate#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security"
+  }
+}
