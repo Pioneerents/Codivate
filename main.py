@@ -12,7 +12,7 @@ from helpers.sms import send_message
 SENDER = os.environ['SENDER']
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
-logging.basicConfig(filename='pyclient.log',level=logging.INFO)
+logging.basicConfig(filename='pyclient.log', level=logging.INFO)
 
 TABLE_NAME = "codivate_users"
 
@@ -38,6 +38,7 @@ cmd_args = {
     "number": args.number
 }
 
+
 def read_file(file_name, clear=False):
     """Function that parses a JSON file and fetches new entries"""
     try:
@@ -48,7 +49,7 @@ def read_file(file_name, clear=False):
     else:
         return data
 
-#TODO: test sending message from db data
+
 def setup_db_conn():
     """Initiate database connection"""
     try:
@@ -69,6 +70,7 @@ def validate_user(primary_key):
     else:
         return False
 
+
 def onboard_users():
     """Add users to the database"""
     new_users = read_file(f"{DIR_PATH}/codivate_local.json")
@@ -78,7 +80,7 @@ def onboard_users():
         TABLE_NAME, users_key_schema, users_attributes)
     db_items = db.get_all_items(users_table)
 
-    #Add the users
+    # Add the users
     try:
         print("Onboarding new users...")
         for user in new_users:
@@ -95,15 +97,15 @@ def onboard_users():
         # Update the users
         for item in db_items:
             key = {"name": item['name'], "number": item['number']}
-            #send_message(SENDER, item['number'], message)
-            # Update the database icon
             tip_id = item['tip'] + 1
+
             if db.get_item(users_table, key) != False:
                 db.update_item(users_table, key, "tip", tip_id)
                 print("Finished onboarding new users.")
         return db_items
     except Exception as e:
         logging.error("Unable to onboard users", e)
+
 
 def save_quotes():
     """Add quotes to the database"""
@@ -126,12 +128,14 @@ def save_quotes():
     else:
         print("Finished adding quotes to database.")
 
+
 def send_texts(rows):
     quotes = read_file("SoftwareTips.json")
     for item in rows:
         tip_id = int(item['tip'])
         message = quotes[tip_id]
         send_message(SENDER, item['number'], message)
+
 
 def main():
     """Single entry point for application"""
