@@ -4,9 +4,9 @@ import logging
 import json
 import argparse
 from pprint import pprint
-from db import Client
-from sms import send_message
-from db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes
+from database.db import Client
+from database.db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes
+from helpers.sms import send_message
 
 # Twilio environment variables
 SENDER = os.environ['SENDER']
@@ -43,8 +43,6 @@ def read_file(file_name, clear=False):
     try:
         with open(file_name, 'r') as f_obj:
             data = json.loads(f_obj.read())
-            # if clear:
-            #     f_obj.write(json.dumps([]))
     except FileNotFoundError as e:
         logging.error(e)
     else:
@@ -67,12 +65,9 @@ def validate_user(primary_key):
     table = db.create_table(TABLE_NAME, users_key_schema, users_attributes)
 
     if db.get_item(table, primary_key) is False:
-        print("1")
         return True
     else:
-        print("0")
         return False
-
 
 def onboard_users():
     """Add users to the database"""
@@ -133,7 +128,7 @@ def send_texts(rows):
     for item in rows:
         tip_id = int(item['tip'])
         message = quotes[tip_id]
-        if item['name'] == "Senna" and item['number' != "+93134122334"]:
+        if item['name'] == "Senna" and item['number'] != "+93134122334":
             send_message(SENDER, item['number'], message)
 
 def main():
