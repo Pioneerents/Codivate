@@ -80,6 +80,7 @@ def onboard_users():
 
     #Add the users
     try:
+        print("Onboarding new users...")
         for user in new_users:
             key = {"name": user['name'], "number": user['number']}
             row = {
@@ -99,11 +100,10 @@ def onboard_users():
             tip_id = item['tip'] + 1
             if db.get_item(users_table, key) != False:
                 db.update_item(users_table, key, "tip", tip_id)
-
+                print("Finished onboarding new users.")
         return db_items
     except Exception as e:
         logging.error("Unable to onboard users", e)
-
 
 def save_quotes():
     """Add quotes to the database"""
@@ -113,6 +113,7 @@ def save_quotes():
     quotes_table = db.create_table(
         "quotes", quotes_key_schema, quotes_attributes)
     try:
+        print("Saving quotes to database...")
         for i, item in enumerate(new_quotes):
             key = {"tip_id": i}
             row = {
@@ -122,6 +123,8 @@ def save_quotes():
                 db.add_item(quotes_table, row)
     except Exception as e:
         logging.error("Unable to save quotes to database")
+    else:
+        print("Finished adding quotes to database.")
 
 def send_texts(rows):
     quotes = read_file("SoftwareTips.json")
