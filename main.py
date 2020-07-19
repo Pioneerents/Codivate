@@ -131,8 +131,7 @@ def send_texts(rows):
     for item in rows:
         tip_id = int(item['tip'])
         message = quotes[tip_id]
-        if item['name'] == "Senna" and item['number'] != "+93134122334":
-            send_message(SENDER, item['number'], message)
+        send_message(SENDER, item['number'], message)
 
 def main():
     """Single entry point for application"""
