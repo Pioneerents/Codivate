@@ -8,38 +8,21 @@ class Client:
     def __init__(self, service):
         self.connection = boto3.resource(service)
 
-    def create_table(self, name):
+    def create_table(self, name, key_schema, attributes):
         """Method to create a table"""
         try:
             table_exists = self.table_exists(name)
             if not table_exists:
                 table = self.connection.create_table(
                     TableName=name,
-                    KeySchema=[
-                        {
-                            'AttributeName': 'name',
-                            'KeyType': 'HASH'
-                        },
-                        {
-                            'AttributeName': 'number',
-                            'KeyType': 'RANGE'
-                        }
-                    ],
-                    AttributeDefinitions=[
-                        {
-                            'AttributeName': 'name',
-                            'AttributeType': 'S'
-                        },
-                        {
-                            'AttributeName': 'number',
-                            'AttributeType': 'N'
-                        },
-                    ],
+                    KeySchema=key_schema,
+                    AttributeDefinitions=attributes,
                     ProvisionedThroughput={
                         'ReadCapacityUnits': 5,
                         'WriteCapacityUnits': 5
                     }
                 )
+                print(f"Created table {name}")
             else:
                 return table_exists
         except Exception as e:
@@ -59,12 +42,21 @@ class Client:
     def add_item(self, table, data):
         """Function that writes to an existing dynamoDB table"""
         try:
-            table.put_item(
-                Item=data
-            )
+            with table.batch_writer() as batch:
+                batch.put_item(Item=data)
             print(f"Adding item: {data}")
         except Exception as e:
             print("Unable to add item: {data} into database!")
+            print(e)
+
+    def delete_item(self, table, data):
+        """Function that writes to an existing dynamoDB table"""
+        try:
+            with table.batch_writer() as batch:
+                batch.delete_item(Item=data)
+            print(f"Deleting item: {data}")
+        except Exception as e:
+            print("Unable to delete item: {data} into database!")
             print(e)
 
     def get_item(self, table, primary_key):
@@ -79,8 +71,25 @@ class Client:
             print(f"Item with primary key {primary_key} NOT FOUND!")
             return False
 
-    def get_keys(self, table, primary_key):
+    def update_item(self, table, primary_key, attribute, new_val):
+        """Function to update existing item from database"""
+        try:
+            response = table.update_item(
+                Key=primary_key,
+                UpdateExpression=f"SET {attribute} = :val1",
+                ExpressionAttributeValues={
+                    ':val1': new_val
+                }
+            )
+            user = primary_key['name']
+            print(f"Updated user {user}'s attribute: {attribute}")
+        except Exception as e:
+            print(f"Unable to update item with attribute {primary_key}!")
+            print(e)
+
+    def get_all_items(self, table, primary_key=None):
         """Function takes in a primary key and returns a query"""
-        response = table.query(KeyConditionExpression=Key(primary_key))
-        items = response['items']
-        print(items)
+        # response = table.query(KeyConditionExpression=Key(primary_key))
+        response = table.scan()
+        items = response['Items']
+        return items
