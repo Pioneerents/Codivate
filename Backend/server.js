@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const fs = require("fs");
-const fileLocation = `${__dirname}/codivate_local.json`;
+const fileLocation = `${__dirname}/../codivate_local.json`;
 const userFile = fs.readFileSync(fileLocation, "utf8");
 const users = JSON.parse(userFile);
 const { exec } = require("child_process");
@@ -16,6 +16,8 @@ app.use(
 );
 
 app.use(cors());
+
+app.use(express.static("../Frontend"));
 
 app.post("/submit", async (req, res) => {
   console.log("got it");
