@@ -9,6 +9,7 @@ from db_config import users_key_schema, users_attributes, quotes_key_schema, quo
 
 # Twilio environment variables
 SENDER = os.environ['SENDER']
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 TABLE_NAME = "codivate_users"
 
@@ -72,7 +73,7 @@ def validate_user(primary_key):
 
 def onboard_users():
     """Add users to the database"""
-    new_users = read_file("codivate_local.json")
+    new_users = read_file(f"{DIR_PATH}/codivate_local.json")
     # Create the table
     db = setup_db_conn()
     users_table = db.create_table(
@@ -89,7 +90,9 @@ def onboard_users():
             }
             name = user['name']
             key = {"name": user['name'], "number": user['number']}
-            if db.get_item(users_table, key) is False:
+            print("we get here")
+            print(db.get_item(users_table, key))
+            if db.get_item(users_table, key) is False or None:
                 print(f"Adding user: {name} to database")
                 db.add_item(users_table, row)
 
@@ -110,7 +113,7 @@ def onboard_users():
 
 def save_quotes():
     """Add quotes to the database"""
-    new_quotes = read_file("SoftwareTips.json")
+    new_quotes = read_file(f"{DIR_PATH}/SoftwareTips.json")
     # Create the table
     db = setup_db_conn()
     quotes_table = db.create_table(
@@ -138,11 +141,11 @@ def send_texts(rows):
 
 def main():
     """Single entry point for application"""
+    key = {"name": cmd_args['name'], "number": cmd_args['number']}
+    validate_user(key)
     rows = onboard_users()
-    send_texts(rows)
+    # send_texts(rows)
     #save_quotes()
-    # key = {"name": cmd_args['name'], "number": cmd_args['number']}
-    # validate_user(key)
 
 
 if __name__ == "__main__":

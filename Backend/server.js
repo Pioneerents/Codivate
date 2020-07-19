@@ -17,7 +17,7 @@ app.use(
 
 app.use(cors());
 
-app.use(express.static("../Frontend"));
+app.use(express.static("Frontend"));
 
 app.post("/submit", async (req, res) => {
   console.log("got it");
@@ -27,16 +27,12 @@ app.post("/submit", async (req, res) => {
       body.tipId = 0;
       const number = body.number;
       const name = body.name;
-      const doesUserExist = await userCheck(name, number);
-      if (!doesUserExist) {
-        console.log("user dont exist");
-        users.push(body);
-        fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");
-        res.sendStatus(200);
-      } else {
-        console.log("User already exists");
-        res.sendStatus(409);
-      }
+      // const doesUserExist = await userCheck(name, number);
+      console.log("user dont exist");
+      console.log("status is", doesUserExist)
+      users.push(body);
+      fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");
+      res.sendStatus(200);
     } catch (error) {
       console.log(error);
     }
@@ -45,13 +41,15 @@ app.post("/submit", async (req, res) => {
 
 function userCheck(name, number) {
   return new Promise((resolve, reject) => {
-    exec(`python main.py ${name} ${number}`, (error, stdout, stderr) => {
+    exec(`python main.py --name ${name} --number ${number}`, (error, stdout, stderr) => {
       if (error) {
         console.log(error);
         reject(err);
       }
+      console.log("test", stdout, "bang")
+      console.log("after")
       if (stdout) {
-        if (stdout == "1") {
+        if (stdout.includes("1")) {
           resolve(false);
           return false;
         } else {
