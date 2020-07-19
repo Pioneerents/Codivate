@@ -22,7 +22,7 @@ class Client:
                         'WriteCapacityUnits': 5
                     }
                 )
-                print(f"Created table {name}")
+                #print(f"Created table {name}")
             else:
                 return table_exists
         except Exception as e:
@@ -44,7 +44,7 @@ class Client:
         try:
             with table.batch_writer() as batch:
                 batch.put_item(Item=data)
-            print(f"Adding item: {data}")
+            #print(f"Adding item: {data}")
         except Exception as e:
             print("Unable to add item: {data} into database!")
             print(e)
@@ -66,7 +66,7 @@ class Client:
                 Key=primary_key
             )
             item = response['Item']
-            print(f"Entry found: {item}")
+            #print(f"Entry found: {item}")
         except Exception as e:
             print(f"Item with primary key {primary_key} NOT FOUND!")
             return False
@@ -82,7 +82,7 @@ class Client:
                 }
             )
             user = primary_key['name']
-            print(f"Updated user {user}'s attribute: {attribute}")
+            #print(f"Updated user {user}'s attribute: {attribute}")
         except Exception as e:
             print(f"Unable to update item with attribute {primary_key}!")
             print(e)
