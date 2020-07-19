@@ -4,6 +4,7 @@ from boto3.dynamodb.conditions import Key
 
 # Create the table and the items/attributes asynchronously
 
+
 class Client:
     def __init__(self, service):
         self.connection = boto3.resource(service)

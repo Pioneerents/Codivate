@@ -10,11 +10,12 @@ SENDER = os.environ['SENDER']
 
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
+
 def send_message(sender, recipient, msg):
     try:
         msg = msg.replace("\\n", "\n")
         message = client.messages.create(
-            to=recipient, 
+            to=recipient,
             from_="Codivate",
             body=f"*Tip of the Day*\n{msg}")
         logging.info(f"Sent text message to {recipient}!")
