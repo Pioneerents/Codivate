@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import argparse
 import os
+import logging
+import argparse
 from twilio.rest import Client
 
 ACCOUNT_SID = os.environ['ACCOUNT_SID']
@@ -16,8 +17,6 @@ def send_message(sender, recipient, msg):
             to=recipient, 
             from_="Codivate",
             body=f"*Tip of the Day*\n{msg}")
-        print(f"Sent text message to {recipient}!")
+        logging.info(f"Sent text message to {recipient}!")
     except Exception as e:
-        print(e)
-    else:
-        print(message.sid)
+        logging.error("Unable to send SMS", e)

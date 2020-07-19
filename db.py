@@ -1,8 +1,8 @@
+import logging
 import boto3
 from boto3.dynamodb.conditions import Key
 
 # Create the table and the items/attributes asynchronously
-
 
 class Client:
     def __init__(self, service):
@@ -22,10 +22,10 @@ class Client:
                         'WriteCapacityUnits': 5
                     }
                 )
-                #print(f"Created table {name}")
             else:
                 return table_exists
         except Exception as e:
+            logging.error(f"Unable to create table {name}")
             raise Exception(e)
         else:
             return table
@@ -36,7 +36,7 @@ class Client:
             date = table.creation_date_time
             return table
         except Exception as e:
-            print(e)
+            logging.error(e)
             return False
 
     def add_item(self, table, data):
@@ -44,20 +44,18 @@ class Client:
         try:
             with table.batch_writer() as batch:
                 batch.put_item(Item=data)
-            #print(f"Adding item: {data}")
+                logging.info(f"Adding item: {data} to database")
         except Exception as e:
-            print("Unable to add item: {data} into database!")
-            print(e)
+            logging.error("Unable to add item: {data} into database!", e)
 
     def delete_item(self, table, data):
         """Function that writes to an existing dynamoDB table"""
         try:
             with table.batch_writer() as batch:
                 batch.delete_item(Item=data)
-            print(f"Deleting item: {data}")
+            logging.info(f"Deleting item: {data}")
         except Exception as e:
-            print("Unable to delete item: {data} into database!")
-            print(e)
+            logging.error("Unable to delete item: {data} into database! {e}")
 
     def get_item(self, table, primary_key):
         """Function to fetch and item from dynamoDB."""
@@ -66,9 +64,8 @@ class Client:
                 Key=primary_key
             )
             item = response['Item']
-            #print(f"Entry found: {item}")
         except Exception as e:
-            print(f"Item with primary key {primary_key} NOT FOUND!")
+            logging.error(f"Item with primary key {primary_key} NOT FOUND!", e)
             return False
 
     def update_item(self, table, primary_key, attribute, new_val):
@@ -82,10 +79,9 @@ class Client:
                 }
             )
             user = primary_key['name']
-            #print(f"Updated user {user}'s attribute: {attribute}")
+            logging.info(f"Updated user {user}'s attribute: {attribute}")
         except Exception as e:
-            print(f"Unable to update item with attribute {primary_key}!")
-            print(e)
+            logging.error(f"Unable to update item with attribute {primary_key}!", e)
 
     def get_all_items(self, table, primary_key=None):
         """Function takes in a primary key and returns a query"""
