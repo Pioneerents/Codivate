@@ -18,12 +18,11 @@ parser.add_argument("--to", default=None, type=str, help="Phone number to send m
 args = parser.parse_args()
 def send_message(sender, recipient, msg):
     try:
-
         msg = msg.replace("\\n", "\n")
         message = client.messages.create(
             to=recipient, 
-            from_=sender,
-            body=msg)
+            from_="Codivate",
+            body=f"*Tip of the Day*\n{msg}")
         print(f"Sent text message to {recipient}!")
     except Exception as e:
         print(e)
