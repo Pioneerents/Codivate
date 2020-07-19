@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import logging
 import json
 import argparse
 from pprint import pprint
@@ -10,6 +11,8 @@ from db_config import users_key_schema, users_attributes, quotes_key_schema, quo
 # Twilio environment variables
 SENDER = os.environ['SENDER']
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+
+logging.basicConfig(filename='pyclient.log',level=logging.INFO)
 
 TABLE_NAME = "codivate_users"
 
@@ -43,7 +46,7 @@ def read_file(file_name, clear=False):
             # if clear:
             #     f_obj.write(json.dumps([]))
     except FileNotFoundError as e:
-        print(e)
+        logging.error(e)
     else:
         return data
 
@@ -53,7 +56,7 @@ def setup_db_conn():
     try:
         db_conn = Client("dynamodb")
     except Exception as e:
-        print(e)
+        logging.error(e)
     else:
         return db_conn
 
@@ -90,10 +93,7 @@ def onboard_users():
             }
             name = user['name']
             key = {"name": user['name'], "number": user['number']}
-            print("we get here")
-            print(db.get_item(users_table, key))
             if db.get_item(users_table, key) is False or None:
-                print(f"Adding user: {name} to database")
                 db.add_item(users_table, row)
 
         # Update the users
@@ -107,8 +107,7 @@ def onboard_users():
 
         return db_items
     except Exception as e:
-        print("Unable to onboard users")
-        print(e)
+        logging.error("Unable to onboard users", e)
 
 
 def save_quotes():
@@ -125,27 +124,26 @@ def save_quotes():
                 "tip_id": i, "body": item,
             }
             if db.get_item(quotes_table, {"tip_id": i}) is False:
-                print(f"Adding quote #{i} to database")
                 db.add_item(quotes_table, row)
     except Exception as e:
-        print("Unable to save quotes to database")
-        print(e)
+        logging.error("Unable to save quotes to database")
 
 def send_texts(rows):
     quotes = read_file("SoftwareTips.json")
     for item in rows:
         tip_id = int(item['tip'])
         message = quotes[tip_id]
-        if item['name'] == "Senna":
+        if item['name'] == "Senna" and item['number' != "+93134122334"]:
             send_message(SENDER, item['number'], message)
 
 def main():
     """Single entry point for application"""
     key = {"name": cmd_args['name'], "number": cmd_args['number']}
-    validate_user(key)
+    if cmd_args['name'] is not None:
+        validate_user(key)
     rows = onboard_users()
-    # send_texts(rows)
-    #save_quotes()
+    send_texts(rows)
+    save_quotes()
 
 
 if __name__ == "__main__":
