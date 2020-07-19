@@ -1,5 +1,7 @@
 # python
 __pycache__/
+database/__pycache__/
+helpers/__pycache__/
 
 # node
 node_modules/
