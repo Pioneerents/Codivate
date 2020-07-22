@@ -1,21 +1,26 @@
+document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
+let countryList;
 
 const Http = new XMLHttpRequest();
 // const url = window.location.host, // we need to use this instead
-const url = "http://localhost:5000/countries", // replace with actual server
-port = window.location.port
+let port = window.location.port;
+// not referencing the port anywhwere using a relative url
 
-Http.open("GET", url);
-Http.send();
-
-Http.onreadystatechange = (e) => {
-  let countryList = JSON.parse(Http.responseText)
-  countryList.forEach((i) => {
-    var option = document.createElement("option");
-    option.text = i.name;
-    dropDown.add(option);
+fetch("/api/countries").then((response) => {
+  if (response.status !== 200) {
+    console.log("error fetching countries");
+    return;
+  }
+  response.json().then((data) => {
+    countryList = data;
+    countryList.forEach((i) => {
+      var option = document.createElement("option");
+      option.text = i.name;
+      dropDown.add(option);
+    });
   });
-}
+});
 
 var submit = document.getElementById("submit");
 var numberField = document.getElementById("number");
@@ -25,6 +30,8 @@ dropDown.onchange = function () {
   countryList.map((i) => {
     if (i.name == chosenValue) {
       code = i.code;
+    } else {
+      code = "";
     }
   });
   numberField.value = code;
