@@ -2,12 +2,13 @@ document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
 
-const Http = new XMLHttpRequest();
-// const url = window.location.host, // we need to use this instead
-let port = window.location.port;
-// not referencing the port anywhwere using a relative url
-
-fetch("/api/countries").then((response) => {
+fetch("/api/countries", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Api_Secret: "07947775930",
+  },
+}).then((response) => {
   if (response.status !== 200) {
     console.log("error fetching countries");
     return;
@@ -23,31 +24,38 @@ fetch("/api/countries").then((response) => {
 });
 
 var submit = document.getElementById("submit");
-var numberField = document.getElementById("number");
+var numberField = document.getElementById("prepend");
 dropDown.onchange = function () {
   let chosenValue = dropDown.options[dropDown.selectedIndex].value;
   let code;
-  countryList.map((i) => {
-    if (i.name == chosenValue) {
+  countryList.forEach((i) => {
+    if (i.name === chosenValue) {
       code = i.code;
-    } else {
+    }
+    if (chosenValue === "") {
       code = "";
     }
+    numberField.innerHTML = code;
   });
-  numberField.value = code;
 };
+
 function logSubmit(event) {
   event.preventDefault();
 
   let name = document.getElementById("name").value;
-  let number = document.getElementById("number").value;
+  let number = numberField.innerHTML + document.getElementById("number").value;
+  console.log("number is ", number);
   var chosen = document.getElementById("prefix");
+  var category = document.getElementById("categories");
   var country = chosen.options[chosen.selectedIndex].value;
+  var chosenCategory = category.options[category.selectedIndex].value;
   let obj = {
     name: name,
     number: number,
     country: country,
+    category: chosenCategory,
   };
+  console.log(obj);
   if (number.length < 8 || name.length < 1) {
   } else {
     try {
