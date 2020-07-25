@@ -8,6 +8,7 @@ const userFile = fs.readFileSync(fileLocation, "utf8");
 const users = JSON.parse(userFile);
 const countries = require("../Frontend/countries.json");
 const tweets = require("./SoftwareTips.json");
+const logger = require("./logger");
 app.use(helmet());
 app.use(
   bodyParser.text({
@@ -19,7 +20,7 @@ app.use(
 app.use(express.static("Frontend"));
 
 app.post("/submit", async (req, res) => {
-  console.log("got it");
+  logger.info("Received a submit request");
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
@@ -28,17 +29,26 @@ app.post("/submit", async (req, res) => {
       fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");
       res.sendStatus(200);
     } catch (error) {
+      logger.error(error);
       console.log(error);
     }
   }
 });
 
 app.get("/api/countries", function (req, res) {
-  res.send(countries);
+  try {
+    res.send(countries);
+  } catch (error) {
+    logger.error(error);
+  }
 });
 
 app.get("/api/tweets", function (req, res) {
-  res.send(tweets);
+  try {
+    res.send(tweets);
+  } catch (error) {
+    logger.error(error);
+  }
 });
 
 module.exports.app = app;
