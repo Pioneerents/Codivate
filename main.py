@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import time
 import logging
 import json
 import argparse
@@ -7,6 +8,7 @@ from pprint import pprint
 from database.db import Client
 from database.db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes
 from helpers.sms import send_message
+from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 
 # Twilio environment variables
 SENDER = os.environ['SENDER']
@@ -14,7 +16,7 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 logging.basicConfig(filename='pyclient.log', level=logging.INFO)
 
-TABLE_NAME = "codivate_users"
+TABLE_NAME = "nwe_fff"
 
 parser = argparse.ArgumentParser(
     description='Create DynamoDB connection and insert data.\n\nCan also query database.')
@@ -78,7 +80,8 @@ def onboard_users():
     db = setup_db_conn()
     users_table = db.create_table(
         TABLE_NAME, users_key_schema, users_attributes)
-    db_items = db.get_all_items(users_table)
+
+    db_items = db.get_all_items(users_table, table_name=TABLE_NAME)
 
     # Add the users
     try:
@@ -92,19 +95,32 @@ def onboard_users():
             name = user['name']
             key = {"name": user['name'], "number": user['number']}
             if db.get_item(users_table, key) is False or None:
-                db.add_item(users_table, row)
+                db.add_item(users_table, row, table_name=TABLE_NAME)
 
         # Update the users
         for item in db_items:
             key = {"name": item['name'], "number": item['number']}
-            tip_id = item['tip'] + 1
+            obj = from_dynamodb_to_json(item)
+            tip_id = obj['tip'] + 1
 
-            if db.get_item(users_table, key) != False:
-                db.update_item(users_table, key, "tip", tip_id)
+            updated_attributes = {
+                "name": obj['name'], "number": obj['number'],
+                "country": obj['country'], "tip": tip_id
+            }
+            if db.get_item(TABLE_NAME, key) != False:
+                db.update_item(users_table, key, "tip", updated_attributes)
                 print("Finished onboarding new users.")
-        return db_items
     except Exception as e:
         logging.error("Unable to onboard users", e)
+    else:
+        send_texts(db_items)
+        # REMOVE!
+        # db.delete_table(TABLE_NAME)
+
+
+def from_dynamodb_to_json(item):
+    d = TypeDeserializer()
+    return {k: d.deserialize(value=v) for k, v in item.items()}
 
 
 def save_quotes():
@@ -122,7 +138,7 @@ def save_quotes():
                 "tip_id": i, "body": item,
             }
             if db.get_item(quotes_table, {"tip_id": i}) is False:
-                db.add_item(quotes_table, row)
+                db.add_item(quotes_table, row, table_name="quotes")
     except Exception as e:
         logging.error("Unable to save quotes to database")
     else:
@@ -132,18 +148,17 @@ def save_quotes():
 def send_texts(rows):
     quotes = read_file("SoftwareTips.json")
     for item in rows:
-        tip_id = int(item['tip'])
+        obj = from_dynamodb_to_json(item)
+        number = obj['number']
+        tip_id = int(obj['tip'])
         message = quotes[tip_id]
-        send_message(SENDER, item['number'], message)
+        print(f"Sending text message to {number}")
+        send_message(SENDER, obj['number'], message)
 
 
 def main():
     """Single entry point for application"""
-    key = {"name": cmd_args['name'], "number": cmd_args['number']}
-    if cmd_args['name'] is not None:
-        validate_user(key)
-    rows = onboard_users()
-    send_texts(rows)
+    onboard_users()
     save_quotes()
 
 
