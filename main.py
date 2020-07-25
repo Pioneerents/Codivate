@@ -51,7 +51,14 @@ def read_file(file_name, clear=False):
     else:
         return data
 
-
+def clear_file(file_name):
+    """Function that clears a json file"""
+    try:
+        with open (file_name, "w") as userFile:
+            json.dump([], userFile)
+    except Exception as e:
+        logging.error(e)
+    
 def setup_db_conn():
     """Initiate database connection"""
     try:
@@ -110,6 +117,10 @@ def onboard_users():
             if db.get_item(TABLE_NAME, key) != False:
                 db.update_item(users_table, key, "tip", updated_attributes)
                 print("Finished onboarding new users.")
+
+        # Clear the user file 
+        clear_file(f"{DIR_PATH}/codivate_local.json")
+
     except Exception as e:
         logging.error("Unable to onboard users", e)
     else:
