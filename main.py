@@ -14,7 +14,7 @@ from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 SENDER = os.environ['SENDER']
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
-logging.basicConfig(filename='pyclient.log', level=logging.INFO)
+logging.basicConfig(filename='./Logs/pyclient.log', level=logging.INFO)
 
 TABLE_NAME = "nwe_fff"
 
