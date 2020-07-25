@@ -19,10 +19,9 @@ app.use(express.static("Frontend"));
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
+  const users = [];
   if (req.body && req.body.length > 4) {
     try {
-      const userFile = fs.readFileSync(fileLocation, "utf8");
-      const users = JSON.parse(userFile);
       const body = JSON.parse(req.body);
       body.tipId = 0;
       users.push(body);
