@@ -4,8 +4,6 @@ const app = express();
 const helmet = require("helmet");
 const fs = require("fs");
 const fileLocation = `${__dirname}/../codivate_local.json`;
-const userFile = fs.readFileSync(fileLocation, "utf8");
-const users = JSON.parse(userFile);
 const countries = require("../Frontend/countries.json");
 const tweets = require("./SoftwareTips.json");
 const logger = require("./logger");
@@ -23,6 +21,8 @@ app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
   if (req.body && req.body.length > 4) {
     try {
+      const userFile = fs.readFileSync(fileLocation, "utf8");
+      const users = JSON.parse(userFile);
       const body = JSON.parse(req.body);
       body.tipId = 0;
       users.push(body);
