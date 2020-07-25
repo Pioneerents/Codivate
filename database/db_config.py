@@ -16,7 +16,7 @@ users_attributes = [
     },
     {
         'AttributeName': 'number',
-        'AttributeType': 'N'
+        'AttributeType': 'S'
     },
 ]
 
