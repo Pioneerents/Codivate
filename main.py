@@ -158,8 +158,6 @@ def save_quotes():
 
 def send_texts(rows):
     quotes = read_file(f"{DIR_PATH}/Backend/SoftwareTips.json")
-    print('@@@@')
-    print(quotes)
     for item in rows:
         obj = from_dynamodb_to_json(item)
         number = obj['number']
