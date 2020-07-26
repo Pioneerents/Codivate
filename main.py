@@ -171,7 +171,7 @@ def send_texts(rows):
 def main():
     """Single entry point for application"""
     onboard_users()
-    save_quotes()
+    # save_quotes()
 
 
 if __name__ == "__main__":
