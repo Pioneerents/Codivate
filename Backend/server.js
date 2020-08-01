@@ -4,7 +4,7 @@ const app = express();
 const helmet = require("helmet");
 const fs = require("fs");
 const fileLocation = `${__dirname}/../resources/codivate_local.json`;
-const countries = require("../Frontend/countries.json");
+const countries = require("../countries.json");
 const tweets = require("./SoftwareTips.json");
 const logger = require("./logger");
 app.use(helmet());
@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-app.use(express.static("Frontend"));
+app.use(express.static("public"));
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
