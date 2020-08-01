@@ -1,0 +1,12 @@
+[
+    "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends.",
+    "You can define a function in python in one line. These are often known as lambda functions. Try it out!",
+    "Hate working with undocumented code? Fear not, Python offers Docstrings. It allows you to document modules, classes and functions.",
+    "There is confusion amongst modules and packages. ",
+    "Did you know Decorators in Python are functions that add functionality to existing functions without changing the structure of the function itself. They are represented by the @decorator_name ",
+    "Bet you didn't think about Python being an interpreted language. This means it converts the source code into an intermediate language which is then translated into machine language.",
+    "Remember that a tuple is immutable and lists are mutable. Data is immutable when it cannot change and allocates a new memory reference.",
+    "Loops can be exhausting especially if you only need to filter out a few things. Thank Python for the use of the 'continue' keyword. This allows us to go to the next iteration in the loop.",
+    "Seen **kwargs but don't know what it does?. It's short for keyword arguments and allows you to insert any amount of keyword arguments when calling your function. ",
+    "Did you know Python has a default main() function that it run everytime to execute your script. We usually overide this if the 'if name == __main__' line."
+]

@@ -33,3 +33,18 @@ quotes_attributes = [
         'AttributeType': 'N'
     },
 ]
+
+
+question_key_schema = [
+    {
+        'AttributeName': 'question_id',
+        'KeyType': 'HASH'
+    }
+]
+
+question_attributes = [
+    {
+        'AttributeName': 'question_id',
+        'AttributeType': 'N'
+    },
+]

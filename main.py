@@ -6,7 +6,7 @@ import json
 import argparse
 from pprint import pprint
 from database.db import Client
-from database.db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes
+from database.db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes, question_key_schema, question_attributes
 from helpers.sms import send_message
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 
@@ -79,6 +79,26 @@ def validate_user(primary_key):
     else:
         return False
 
+def save_questions(input_file, table_name):
+    """Function that writes programming questions to the dynamo db database"""
+    questions = read_file(f"{DIR_PATH}/{input_file}.json")
+
+    db = setup_db_conn()
+    table = db.create_table(table_name, question_key_schema, question_attributes)
+
+    db_items = db.get_all_items(table, table_name=table_name)
+
+    try:
+        print(f"Saving questions to {table_name} table...")
+        for i, item in enumerate(questions):
+            key = {"question_id": i}
+            row = {
+                "question_id": i, "body": item,
+            }
+            if db.get_item(table, {"question_id": i}) is False:
+                db.add_item(table, row, table_name=table_name)
+    except Exception as e:
+        logging.error(f"Unable to save questions to {table_name} table")
 
 def onboard_users():
     """Add users to the database"""
@@ -86,9 +106,9 @@ def onboard_users():
     # Create the table
     db = setup_db_conn()
     users_table = db.create_table(
-        TABLE_NAME, users_key_schema, users_attributes)
+        "users", users_key_schema, users_attributes)
 
-    db_items = db.get_all_items(users_table, table_name=TABLE_NAME)
+    db_items = db.get_all_items(users_table, table_name="users")
 
     # Add the users
     try:
@@ -97,36 +117,41 @@ def onboard_users():
             key = {"name": user['name'], "number": user['number']}
             row = {
                 "name": user['name'], "number": user['number'],
-                "country": user['country'], "tip": user['tipId']
+                "country": user['country'], "tip": user['tipId'],
+                "category": user['category'],
+                "python_id": 0, "javascript_id": 0
             }
             name = user['name']
             key = {"name": user['name'], "number": user['number']}
             if db.get_item(users_table, key) is False or None:
-                db.add_item(users_table, row, table_name=TABLE_NAME)
+                db.add_item(users_table, row, table_name="users")
 
+        # Send the texts
+        send_texts(db_items)
         # Update the users
         for item in db_items:
             key = {"name": item['name'], "number": item['number']}
             obj = from_dynamodb_to_json(item)
-            tip_id = obj['tip'] + 1
+            tip_id = obj['tip']
+            py_id = obj['python_id'] + 1
+            js_id = obj['javascript_id'] + 1
 
             updated_attributes = {
                 "name": obj['name'], "number": obj['number'],
-                "country": obj['country'], "tip": tip_id
+                "country": obj['country'], "tip": tip_id,
+                "python_id": py_id, "javascript_id": js_id,
+                "category": obj['category']
             }
-            if db.get_item(TABLE_NAME, key) != False:
-                db.update_item(users_table, key, "tip", updated_attributes)
-                print("Finished onboarding new users.")
+            if db.get_item("users", key) != False:
+                for attribute in ("python_id", "javascript_id"):
+                    db.update_item(users_table, key, attribute, updated_attributes)
 
         # Clear the user file 
         clear_file(f"{DIR_PATH}/codivate_local.json")
-
     except Exception as e:
         logging.error("Unable to onboard users", e)
     else:
-        send_texts(db_items)
-        # REMOVE!
-        # db.delete_table(TABLE_NAME)
+        print("Finished onboarding new users.")
 
 
 def from_dynamodb_to_json(item):
@@ -157,21 +182,31 @@ def save_quotes():
 
 
 def send_texts(rows):
-    quotes = read_file(f"{DIR_PATH}/Backend/SoftwareTips.json")
+    python_questions = read_file(f"{DIR_PATH}/python_questions.json")
+    javascript_questions = read_file(f"{DIR_PATH}/javascript_questions.json")
+
     for item in rows:
         obj = from_dynamodb_to_json(item)
         number = obj['number']
-        tip_id = int(obj['tip'])
+        if obj['category'] == "python":
+            question_id = int(obj['python_id'])
+            title = obj['category']
+            message = python_questions[question_id]
+        elif obj['category'] == "javascript":
+            question_id = int(obj['javascript_id'])
+            title = obj['category']
+            message = javascript_questions[question_id]
 
-        message = quotes[tip_id]
         print(f"Sending text message to {number}")
-        send_message(SENDER, obj['number'], message)
+        send_message(SENDER, obj['number'], message, title)
 
 
 def main():
     """Single entry point for application"""
     onboard_users()
     # save_quotes()
+    for language in ("python", "javascript"):
+        save_questions(f"{language}_questions", f"{language}_questions")
 
 
 if __name__ == "__main__":
