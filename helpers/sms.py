@@ -17,7 +17,7 @@ def send_message(sender, recipient, msg, title):
         message = client.messages.create(
             to=recipient,
             from_="Codivate",
-            body=f"*{title.capitalize()} Question*\n\n{msg}")
+            body=f"*{title.capitalize()} Tip*\n\n{msg}\n\nEnjoy the content?\nSupport us on https://www.buymeacoffee.com/Codivate")
         logging.info(f"Sent text message to {recipient}!")
     except Exception as e:
         logging.error("Unable to send SMS", e)
