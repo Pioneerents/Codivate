@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-app.use(express.static("public"));
+app.use(express.static("Public"));
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
