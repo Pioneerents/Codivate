@@ -81,7 +81,7 @@ def validate_user(primary_key):
 
 def save_questions(input_file, table_name):
     """Function that writes programming questions to the dynamo db database"""
-    questions = read_file(f"{DIR_PATH}/{input_file}.json")
+    questions = read_file(f"{DIR_PATH}/resources/{input_file}.json")
 
     db = setup_db_conn()
     table = db.create_table(table_name, question_key_schema, question_attributes)
@@ -102,7 +102,7 @@ def save_questions(input_file, table_name):
 
 def onboard_users():
     """Add users to the database"""
-    new_users = read_file(f"{DIR_PATH}/codivate_local.json")
+    new_users = read_file(f"{DIR_PATH}/resources/codivate_local.json")
     # Create the table
     db = setup_db_conn()
     users_table = db.create_table(
@@ -147,7 +147,7 @@ def onboard_users():
                     db.update_item(users_table, key, attribute, updated_attributes)
 
         # Clear the user file 
-        clear_file(f"{DIR_PATH}/codivate_local.json")
+        clear_file(f"{DIR_PATH}/resources/codivate_local.json")
     except Exception as e:
         logging.error("Unable to onboard users", e)
     else:
@@ -161,7 +161,7 @@ def from_dynamodb_to_json(item):
 
 def save_quotes():
     """Add quotes to the database"""
-    new_quotes = read_file(f"{DIR_PATH}/SoftwareTips.json")
+    new_quotes = read_file(f"{DIR_PATH}/resources/SoftwareTips.json")
     # Create the table
     db = setup_db_conn()
     quotes_table = db.create_table(
@@ -182,8 +182,8 @@ def save_quotes():
 
 
 def send_texts(rows):
-    python_questions = read_file(f"{DIR_PATH}/python_questions.json")
-    javascript_questions = read_file(f"{DIR_PATH}/javascript_questions.json")
+    python_questions = read_file(f"{DIR_PATH}/resources/python_questions.json")
+    javascript_questions = read_file(f"{DIR_PATH}/resources/javascript_questions.json")
 
     for item in rows:
         obj = from_dynamodb_to_json(item)
