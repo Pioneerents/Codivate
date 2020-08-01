@@ -24,6 +24,7 @@ fetch("/api/countries", {
 });
 
 var submit = document.getElementById("submit");
+var signup = document.getElementById("signuptext");
 var numberField = document.getElementById("prepend");
 dropDown.onchange = function () {
   let chosenValue = dropDown.options[dropDown.selectedIndex].value;
@@ -70,6 +71,8 @@ function logSubmit(event) {
         },
       });
       submit.innerHTML = "Submitted";
+      signup.innerHTML = `Thank you for signing up!`;
+
       submit.disabled = true;
     } catch (error) {
       console.log(error);
