@@ -11,13 +11,13 @@ SENDER = os.environ['SENDER']
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 
-def send_message(sender, recipient, msg):
+def send_message(sender, recipient, msg, title):
     try:
         msg = msg.replace("\\n", "\n")
         message = client.messages.create(
             to=recipient,
             from_="Codivate",
-            body=f"*Tip of the Day*\n{msg}")
+            body=f"*{title.capitalize()} Question*\n\n{msg}")
         logging.info(f"Sent text message to {recipient}!")
     except Exception as e:
         logging.error("Unable to send SMS", e)
