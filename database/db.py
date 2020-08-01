@@ -18,6 +18,7 @@ class Client:
         """Method to create a table"""
         try:
             table_exists = self.table_exists(name)
+            print(f"Creating table {name}")
             if not table_exists:
                 table = self.connection.create_table(
                     TableName=name,
@@ -90,7 +91,6 @@ class Client:
     def get_item(self, table_name, primary_key):
         """Function to fetch and item from dynamoDB."""
         try:
-            print(primary_key)
             response = self.client.get_item(
                 TableName=table_name,
                 Key=primary_key
