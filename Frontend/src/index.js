@@ -1,12 +1,23 @@
+import _ from "lodash";
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
+
+function component() {
+  const element = document.createElement("div");
+
+  // Lodash, now imported by this script
+  element.innerHTML = _.join(["Hello", "webpack"], " ");
+
+  return element;
+}
+
+document.body.appendChild(component());
 
 fetch("/api/countries", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    Api_Secret: "07947775930",
   },
 }).then((response) => {
   if (response.status !== 200) {
