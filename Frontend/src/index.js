@@ -2,8 +2,6 @@ document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
 
-document.body.appendChild(component());
-
 fetch("/api/countries", {
   method: "GET",
   headers: {
