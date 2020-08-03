@@ -22,7 +22,6 @@ header.masthead {
   background-size: cover;
   opacity: 79%;
   padding-top: 8rem;
-  padding-bottom: 8rem;
 }
 header.masthead .overlay {
   position: absolute;
@@ -38,7 +37,6 @@ header.masthead h1 {
 }
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
   }
   header.masthead h1 {
     font-size: 3rem;
