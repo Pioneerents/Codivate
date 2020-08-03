@@ -11,7 +11,6 @@ from helpers.sms import send_message
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 
 # Twilio environment variables
-SENDER = os.environ['SENDER']
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 logging.basicConfig(filename='./Logs/pyclient.log', level=logging.INFO)
@@ -179,27 +178,6 @@ def save_quotes():
         logging.error("Unable to save quotes to database")
     else:
         print("Finished adding quotes to database.")
-
-
-def send_texts(rows):
-    python_questions = read_file(f"{DIR_PATH}/resources/python_questions.json")
-    javascript_questions = read_file(f"{DIR_PATH}/resources/javascript_questions.json")
-
-    for item in rows:
-        obj = from_dynamodb_to_json(item)
-        number = obj['number']
-        if obj['category'] == "python":
-            question_id = int(obj['python_id'])
-            title = obj['category']
-            message = python_questions[question_id]
-        elif obj['category'] == "javascript":
-            question_id = int(obj['javascript_id'])
-            title = obj['category']
-            message = javascript_questions[question_id]
-
-        print(f"Sending text message to {number}")
-        send_message(SENDER, obj['number'], message, title)
-
 
 def main():
     """Single entry point for application"""
