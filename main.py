@@ -118,6 +118,7 @@ def onboard_users():
                 "name": user['name'], "number": user['number'],
                 "country": user['country'], "tip": user['tipId'],
                 "category": user['category'],
+                "level": user['level'],
                 "python_id": 0, "javascript_id": 0
             }
             name = user['name']
@@ -139,7 +140,8 @@ def onboard_users():
                 "name": obj['name'], "number": obj['number'],
                 "country": obj['country'], "tip": tip_id,
                 "python_id": py_id, "javascript_id": js_id,
-                "category": obj['category']
+                "category": obj['category'],
+                "level": obj['level']
             }
             if db.get_item("users", key) != False:
                 for attribute in ("python_id", "javascript_id"):

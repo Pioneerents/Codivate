@@ -31,14 +31,18 @@ def send_texts(rows):
     for item in rows:
         obj = from_dynamodb_to_json(item)
         number = obj['number']
+        level = obj['level']
+
         if obj['category'] == "python":
+            questions = list(filter(lambda x: x['level'] == level, python_questions))
             question_id = int(obj['python_id'])
             title = obj['category']
-            message = python_questions[question_id]
+            message = questions[question_id]
         elif obj['category'] == "javascript":
+            questions = list(filter(lambda x: x['level'] == level, javascript_questions))
             question_id = int(obj['javascript_id'])
             title = obj['category']
-            message = javascript_questions[question_id]
+            message = questions[question_id]
 
         print(f"Sending text message to {number}")
         send_message(SENDER, obj['number'], message, title)
