@@ -49,11 +49,14 @@ function logSubmit(event) {
   var category = document.getElementById("categories");
   var country = chosen.options[chosen.selectedIndex].value;
   var chosenCategory = category.options[category.selectedIndex].value;
+  var levels = document.getElementById("level");
+  var chosenLevel = levels.options[levels.selectedIndex].value;
   let obj = {
     name: name,
     number: number,
     country: country,
     category: chosenCategory,
+    level: chosenLevel,
   };
   console.log(obj);
   if (number.length < 8 || name.length < 1) {
