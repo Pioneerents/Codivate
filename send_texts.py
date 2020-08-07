@@ -32,20 +32,30 @@ def send_texts(rows):
         obj = from_dynamodb_to_json(item)
         number = obj['number']
         level = obj['level']
+        tip_id = obj['tip']
+        premium = obj['premium']
 
-        if obj['category'] == "python":
-            questions = list(filter(lambda x: x['level'] == level, python_questions))
-            question_id = int(obj['python_id'])
+        # Check whether free trial has run out
+        if tip_id >= 6 and premium is False:
+            # do not send anything
+            print("we get here")
             title = obj['category']
-            message = questions[question_id]
-        elif obj['category'] == "javascript":
-            questions = list(filter(lambda x: x['level'] == level, javascript_questions))
-            question_id = int(obj['javascript_id'])
-            title = obj['category']
-            message = questions[question_id]
+            message = "Uh oh {}, it seems your free trial has run out. Subscribe here at https://codivate.io/subscribe for more content!".format(obj['user'])
+            send_message(SENDER, obj['number'], message, title)
+        else:
+            if obj['category'] == "python":
+                questions = list(filter(lambda x: x['level'] == level, python_questions))
+                question_id = int(obj['python_id'])
+                title = obj['category']
+                message = questions[question_id]
+            elif obj['category'] == "javascript":
+                questions = list(filter(lambda x: x['level'] == level, javascript_questions))
+                question_id = int(obj['javascript_id'])
+                title = obj['category']
+                message = questions[question_id]
 
-        print(f"Sending text message to {number}")
-        send_message(SENDER, obj['number'], message, title)
+            print(f"Sending text message to {number}")
+            send_message(SENDER, obj['number'], message, title)
 
 
 def main():
@@ -62,7 +72,7 @@ def main():
         for item in db_items:
             key = {"name": item['name'], "number": item['number']}
             obj = from_dynamodb_to_json(item)
-            tip_id = obj['tip']
+            tip_id = obj['tip'] + 1
             py_id = obj['python_id'] + 1
             js_id = obj['javascript_id'] + 1
 
