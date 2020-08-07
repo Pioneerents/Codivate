@@ -121,6 +121,10 @@ def onboard_users():
                 "level": user['level'],
                 "python_id": 0, "javascript_id": 0
             }
+            # Add the premium user to the database
+            if user['premium'] is not None:
+                row.update(premium=user['premium'])
+
             name = user['name']
             key = {"name": user['name'], "number": user['number']}
             if db.get_item(users_table, key) is False or None:
