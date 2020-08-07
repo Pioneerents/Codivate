@@ -125,33 +125,11 @@ def onboard_users():
             key = {"name": user['name'], "number": user['number']}
             if db.get_item(users_table, key) is False or None:
                 db.add_item(users_table, row, table_name="users")
-
-        # Send the texts
-        send_texts(db_items)
-        # Update the users
-        for item in db_items:
-            key = {"name": item['name'], "number": item['number']}
-            obj = from_dynamodb_to_json(item)
-            tip_id = obj['tip']
-            py_id = obj['python_id'] + 1
-            js_id = obj['javascript_id'] + 1
-
-            updated_attributes = {
-                "name": obj['name'], "number": obj['number'],
-                "country": obj['country'], "tip": tip_id,
-                "python_id": py_id, "javascript_id": js_id,
-                "category": obj['category'],
-                "level": obj['level']
-            }
-            if db.get_item("users", key) != False:
-                for attribute in ("python_id", "javascript_id"):
-                    db.update_item(users_table, key, attribute, updated_attributes)
-
+    except Exception as e:
+        logging.error(f"Unable to save users to {table_name} table")
+    else:
         # Clear the user file 
         clear_file(f"{DIR_PATH}/resources/codivate_local.json")
-    except Exception as e:
-        logging.error("Unable to onboard users", e)
-    else:
         print("Finished onboarding new users.")
 
 
