@@ -6,6 +6,7 @@ import json
 import argparse
 from pprint import pprint
 from database.db import Client
+from datetime import date
 from database.db_config import users_key_schema, users_attributes, quotes_key_schema, quotes_attributes, question_key_schema, question_attributes
 from helpers.sms import send_message
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
@@ -119,6 +120,7 @@ def onboard_users():
                 "country": user['country'], "tip": user['tipId'],
                 "category": user['category'],
                 "level": user['level'],
+                "start_date": str(date.today()),
                 "python_id": 0, "javascript_id": 0
             }
             name = user['name']
