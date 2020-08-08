@@ -48,6 +48,7 @@ def send_texts(rows):
 
         print(f"Sending text message to {number}")
         send_message(SENDER, obj['number'], message, title, formatted_name)
+        time.sleep(2)
 
 
 def main():
