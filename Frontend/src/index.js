@@ -4,6 +4,16 @@ document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
 
+let textSchedule = 19,
+currentDate = new Date(),
+hours = currentDate.getHours(),
+mins = currentDate.getMinutes(),
+diffHours = textSchedule - hours,
+diffMins = mins <= 30 ? 30 - mins : 60 - mins,
+minsStr = mins !== "" ? "mins" : ""
+
+let nextText = diffHours > 0 ? `${diffHours}hrs` : `the next hour`
+
 fetch("/api/countries", {
   method: "GET",
   headers: {
@@ -46,7 +56,7 @@ function logSubmit(event) {
 
   let name = document.getElementById("name").value;
   let number = numberField.innerHTML + document.getElementById("number").value;
-  console.log("number is ", number);
+  console.log("number is", number, nextText);
   var chosen = document.getElementById("prefix");
   var category = document.getElementById("categories");
   var country = chosen.options[chosen.selectedIndex].value;
@@ -75,7 +85,7 @@ function logSubmit(event) {
         },
       });
       submit.innerHTML = "Submitted";
-      signup.innerHTML = `Thank you for signing up!`;
+      signup.innerHTML = `Thank you for signing up!\nYou'll get your first tip in ${nextText}`;
 
       submit.disabled = true;
     } catch (error) {
