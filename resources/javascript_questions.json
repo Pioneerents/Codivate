@@ -12,7 +12,7 @@
     "level": 1
   },
   {
-    "tip": "Using a switch/case is faster when there are more than 2 cases. Avoid using switch cases when you have more than 10 cases.\n\n Also remember to always end switch statements with a default case. Even if you think there's no need. This is good practise and makes your code robust",
+    "tip": "Using a switch/case is faster when there are more than 2 cases. Avoid using switch cases when you have more than 10 cases.\nAlso remember to always end switch statements with a default case. Even if you think there's no need. This is good practise and makes your code robust",
     "level": 1
   },
   {
@@ -25,7 +25,7 @@
   },
 
   {
-    "tip": "The 'eval' function gives us access to JavaScript's compiler.\nEssentially, we can execute a string's result by passing it as a parameter of 'eval'.\n This decreases performance and poses a huge security risk because it grants far too much power to the passed in text. Avoid!",
+    "tip": "The 'eval' function gives us access to JavaScript's compiler.\nEssentially, we can execute a string's result by passing it as a parameter of 'eval'.\nThis decreases performance and poses a huge security risk because it grants far too much power to the passed in text. Avoid!",
     "level": 2
   },
   {
