@@ -8,16 +8,28 @@
     "level": 1
   },
   {
-    "tip": "Hate working with undocumented code? Fear not, Python offers Docstrings. It allows you to document modules, classes and functions.",
+    "tip": "Hate working with undocumented code? Fear not, Python offers Docstrings. It allows you to document modules, classes, and functions.",
     "level": 1
   },
   {
-    "tip": "There is confusion amongst modules and packages. ",
+    "tip": "There is confusion amongst modules and packages.\nA package is a collection of python modules, whereas a module is a single python file.",
     "level": 1
   },
   {
     "tip": "You need a unique list of values so you have a condition to filter through your list? Why don't you consider using the Set data structure. Sets store unique values so you will not have to worry about extra validation.",
     "level": 1
+  },
+  {
+    "tip": "Ever heard of negative indexing? Python allows you add negative indexes to structures so that you can easily return the last element of a list.\nFor example list[-1]",
+    "level": 2
+  },
+  {
+    "tip": "You can define a function in python using one line. These are often known as lambda functions aka anonymous functions. Try it out!",
+    "level": 2
+  },
+  {
+    "tip": "Seen that scary __init__.py file butt have no clue what it does? They are used to mark directories in your python environment as python package directories.\nIn simple terms, it allows us to import python modules from different directories.",
+    "level": 2
   },
   {
     "tip": "Stuck on identify the root cause of that bug again? Try and debug by using the print() function to see the state of certain variables.",
@@ -28,7 +40,7 @@
     "level": 1
   },
   {
-    "tip": "You may often here dynamic typing and python in the same sentence. Don't let this scare you! Python is a dynamically typed language meaning that we do not have to explicitly specify the type for each variable.",
+    "tip": "You may often here dynamic typing and python in the same sentence. Don't let this scare you!\nPython is a dynamically typed language meaning that we do not have to explicitly specify the type for each variable.",
     "level": 2
   },
   {
@@ -36,7 +48,7 @@
     "level": 2
   },
   {
-    "tip": "You can define a function in python in one line. These are often known as lambda functions. Try it out!",
+    "tip": "You need a unique list of values so you have a condition to filter through your list? Why don't you consider using the Set data structure. Sets store unique values so you will not have to worry about extra validation.",
     "level": 2
   },
   {
@@ -56,7 +68,15 @@
     "level": 2
   },
   {
-    "tip": "Did you know if you have python2 code and need to migrate to version 3, you can utilise the '2to3' package. It's a CLI interface that attempts to convert legacy python codee to modern.",
+    "tip": "Trying to figure out what objects could potentially cause an OOM failure. Use sys.getsizeof() function to return the size of an object in bytes.",
+    "level": 3
+  },
+  {
+    "tip": "Did you know that although python has many benefits, a major limitation is that it is single-threaded. This is designed by nature due to the Global Interpreter Lock (GIL)\nThis means the interpreter can only run one thread at a given time.",
+    "level": 2
+  },
+  {
+    "tip": "Did you know if you have python2 code and need to migrate to version 3, you can utilize the '2to3' package. It's a CLI interface that attempts to convert legacy python code to modern.",
     "level": 3
   },
   {
