@@ -1,6 +1,6 @@
 [
   {
-    "tip": "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends. These keywords will allow your application when an undesirable state appears.",
+    "tip": "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends. These keywords will allow you to handle your application when an undesirable state appears.",
     "level": 1
   },
   {
