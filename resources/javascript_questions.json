@@ -12,31 +12,36 @@
     "level": 1
   },
   {
-    "tip":   "Use a switch case when you can. Using a switch/case is faster when there are more than 2 cases, and is more readable. Avoid using it when you have more than 10 cases.",
+    "tip": "Use a switch case when you can. Using a switch/case is faster when there are more than 2 cases and is more elegant (better organised code). As a rule of thumb, avoid using switch cases when you have more than 10 cases.",
     "level": 1
   },
   {
-    "tip": "Can you invoke functions before declaration? Yes. Hoisting is a JavaScript mechanism in which variable and function declaration are moved to the top of the file before code execution. Note - this is only applicable to functions defined with the function keyword at the beginning of the declaration",
+    "tip": "Can you invoke functions before declaration? Yes. Hoisting is a JavaScript mechanism in which variable and function declaration are moved to the top of the file before code execution. Thus allowing you to invoke function or reference variables before they have been declared. Try it out!",
     "level": 1
   },
   {
-    "tip": "Know what a pure function is? A pure function can be defined as a function that produces no side effects, nor does it rely on side effects. A pure function, when called with the same argument, will always produce the same result.",
-    "level": 1
+    "tip": "Know what a pure function is? A pure function can be defined as a function that produces no side effects, nor does it rely on side effects and is independent of state. A pure function, when called with the same argument, will always produce the same result.",
+    "level": 2
   },
+
   {
     "tip": "Eval = bad. The 'eval' function gives us access to JavaScript's compiler. Essentially, we can execute a string's result by passing it as a parameter of 'eval'. Not only will this decrease your script's performance substantially, but it also poses a huge security risk because it grants far too much power to the passed in text. Avoid, avoid, avoid!",
-    "level": "intermediate"
+    "level": 2
   },
   {
     "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time",
     "level": 1
   },
   {
+    "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time",
+    "level": 2
+  },
+  {
     "tip": "Need a function to run automatically when a page loads or a parents functions is called. JavaScripts provides you with self-executing functions. Simply wrap your function in parenthesis, and then append an additional set, which essentially calls the function.",
     "level": 2
   },
   {
-    "tip": "Handy Tip - Always treat numbers and booleans as primitive values and not objects. Because they not only slow down execution, but may produce some nasty side effects!",,
+    "tip": "Handy Tip - Always treat numbers and booleans as primitive values and not objects. Because they not only slow down execution, but may produce some nasty side effects!",
     "level": 2
   },
   {
@@ -52,7 +57,7 @@
     "level": 1
   },
   {
-    "tip":  "Declarations on top - It is good coding practise to put all your declarations at the top. Here's why: Cleaner code, provide a single place to look for local variables, reduce the possibility of unwanted re-declarations.",
+    "tip": "Declarations on top - It is good coding practise to put all your declarations at the top. Here's why: Cleaner code, provide a single place to look for local variables, reduce the possibility of unwanted re-declarations.",
     "level": 1
   },
   {
@@ -64,5 +69,3 @@
     "level": 1
   }
 ]
-  
-
