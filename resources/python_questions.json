@@ -1,11 +1,11 @@
 [
   {
-    "tip": "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends.",
+    "tip": "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends. These keywords will allow your application when an undesirable state appears.",
     "level": 1
   },
   {
-    "tip": "You can define a function in python in one line. These are often known as lambda functions. Try it out!",
-    "level": 2
+    "tip": "Stop writing endless if statements to sort your lists. Python provides a function sorted() that will return a sorted list of items.",
+    "level": 1
   },
   {
     "tip": "Hate working with undocumented code? Fear not, Python offers Docstrings. It allows you to document modules, classes and functions.",
@@ -14,6 +14,30 @@
   {
     "tip": "There is confusion amongst modules and packages. ",
     "level": 1
+  },
+  {
+    "tip": "You need a unique list of values so you have a condition to filter through your list? Why don't you consider using the Set data structure. Sets store unique values so you will not have to worry about extra validation.",
+    "level": 1
+  },
+  {
+    "tip": "Stuck on identify the root cause of that bug again? Try and debug by using the print() function to see the state of certain variables.",
+    "level": 1
+  },
+  {
+    "tip": "Python supports a range of data structures: Lists (similar to an array), Tuples (immutable list), Dicts (key value pairs), Sets (unique list), FrozenSets (immutable sets)",
+    "level": 1
+  },
+  {
+    "tip": "You may often here dynamic typing and python in the same sentence. Don't let this scare you! Python is a dynamically typed language meaning that we do not have to explicitly specify the type for each variable.",
+    "level": 2
+  },
+  {
+    "tip": "Are you still creating custom counters to keep track of your list? Please stop and consider using the enumerate() function. It allows you to add a counter to an iterable object e.g. a list!",
+    "level": 2
+  },
+  {
+    "tip": "You can define a function in python in one line. These are often known as lambda functions. Try it out!",
+    "level": 2
   },
   {
     "tip": "Did you know Decorators in Python are functions that add functionality to existing functions without changing the structure of the function itself. They are represented by the @decorator_name ",
@@ -32,8 +56,16 @@
     "level": 2
   },
   {
+    "tip": "Did you know if you have python2 code and need to migrate to version 3, you can utilise the '2to3' package. It's a CLI interface that attempts to convert legacy python codee to modern.",
+    "level": 3
+  },
+  {
+    "tip": "Though we despise it due to not being good practice, we can extend or modify external code at runtime which is often known as 'Monkey Patching'. This can sometimes be useful for hacking with external libraries.",
+    "level": 3
+  },
+  {
     "tip": "Seen **kwargs but don't know what it does?. It's short for keyword arguments and allows you to insert any amount of keyword arguments when calling your function. ",
-    "level": "advanced"
+    "level": 3
   },
   {
     "tip": "Did you know Python has a default main() function that it run everytime to execute your script. We usually overide this if the 'if name == __main__' line.",
