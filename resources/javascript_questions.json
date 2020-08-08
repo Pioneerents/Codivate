@@ -12,7 +12,7 @@
     "level": 1
   },
   {
-    "tip": "Using a switch/case is faster when there are more than 2 cases. Avoid using switch cases when you have more than 10 cases.\nAlso remember to always end switch statements with a default case. Even if you think there's no need. This is good practise and makes your code robust",
+    "tip": "Using a switch/case is faster when there are more than 2 cases. Avoid using switch cases when you have more than 10 cases.\nAlso remember to always end switch statements with a default case. Even if you think there's no need. This is good practise and makes your code robust.",
     "level": 1
   },
   {
@@ -29,11 +29,11 @@
     "level": 2
   },
   {
-    "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time",
+    "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time.",
     "level": 1
   },
   {
-    "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time",
+    "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time.",
     "level": 2
   },
   {
@@ -57,11 +57,11 @@
     "level": 1
   },
   {
-    "tip": "Template literals make working with strings so much easier. To create a template literal simply use a backtick (`) instead of a single/double quote.\nTemplate literals also provide an easy way to interpolate variables and expressions into strings by simply using the ${...} syntax",
+    "tip": "Template literals make working with strings so much easier. To create a template literal simply use a backtick (`) instead of a single/double quote.\nTemplate literals also provide an easy way to interpolate variables and expressions into strings by simply using the ${...} syntax.",
     "level": 1
   },
   {
-    "tip": "To bypass JS’s leniency you can opt into using strict mode by adding the line ‘use strict’ either at the top of your file (for the whole section) or before the desired function.\n\nBy using strict mode silent errors that would’ve previously been ok now throw errors",
+    "tip": "To bypass JS’s leniency you can opt into using strict mode by adding the line ‘use strict’ either at the top of your file (for the whole section) or before the desired function.\n\nBy using strict mode silent errors that would’ve previously been ok now throw errors.",
     "level": 2
   },
   {
@@ -69,15 +69,39 @@
     "level": 2
   },
   {
+    "tip": "The rest parameter syntax allows you to represent an indefinite number of arguments as an array.\nA function's last or only parameter can be prefixed with ... which will cause all remaining (user supplied) arguments to be placed within a 'standard' JavaScript array. Try it out!",
+    "level": 2
+  },
+  {
     "tip": "Know what closure is? Closure is the combination of a function bundled together with references to its lexical environment. Put simply, a closure gives you access to an outer functions scope from an inner function.  In JS, closures are created every time a function is created.",
     "level": 3
   },
   {
-    "tip": "One of the  biggest benefits of ‘Closures’ is that they allows us to privatise variables, much like Java. We can achieve this privatisation by using factory functions (A factory function is any function which is not a class or constructor that returns a new object)",
+    "tip": "One of the  biggest benefits of ‘Closures’ is that they allows us to privatise variables, much like Java. We can achieve this privatisation by using factory functions (A factory function is any function which is not a class or constructor that returns a new object).",
     "level": 3
   },
   {
     "tip": "When dealing with functions that can accept a large number of optional arguments. Instead of passing the large number of arguments in, which could complicate the function, you can pass just one argument which ends up being a collection of arguments declared in an object literal.",
+    "level": 3
+  },
+  {
+    "tip": "Accessing the DOM is slow. If you are going to read the content of an element numerous times, it's better to bind it in a local variable. Keep in mind, if you later remove the value of the DOM, the variable should be set to 'null', so it doesn’t cause any memory leaks.",
+    "level": 3
+  },
+  {
+    "tip": "It’s unlikely that all functions are needed for the initial load of a page. If an action must be performed for a function to be executed (e.g. clicking an element), it’s possible to defer loading that function until after the initial page load. This speeds up the page load time.",
+    "level": 3
+  },
+  {
+    "tip": "console.time and console.timeEnd methods allow devs to time any routine and get a duration back in milliseconds.  Since JavaScript performance is becoming increasingly important, it's useful to know basic techniques for benchmarking routines.",
+    "level": 3
+  },
+  {
+    "tip": "The rest parameter syntax allows you to represent an indefinite number of arguments as an array.\nA function's last or only parameter can be prefixed with ... which will cause all remaining (user supplied) arguments to be placed within a 'standard' JavaScript array. Try it out!",
+    "level": 3
+  },
+  {
+    "tip": "When you clone an object in JavaScript, you can either create a deep copy or a shallow copy.\nThe difference is that a deep copy, like Lodash's cloneDeep() function, recursively clones all nested objects.\n Whereas shallow cloning does not.",
     "level": 3
   }
 ]
