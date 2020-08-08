@@ -1,18 +1,31 @@
 import b from "./img/header.jpg";
+import moment from "moment";
 
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
 
+console.log("hello")
 let textSchedule = 19,
 currentDate = new Date(),
-hours = currentDate.getHours(),
+hours = currentDate.getUTCHours(),
 mins = currentDate.getMinutes(),
-diffHours = textSchedule - hours,
+diffHours = new Date().setHours(19) - hours,
 diffMins = mins <= 30 ? 30 - mins : 60 - mins,
 minsStr = mins !== "" ? "mins" : ""
+var now = moment();
 
-let nextText = diffHours > 0 ? `${diffHours}hrs` : `the next hour`
+
+var test_var = moment.utc(`${hours}`, 'HH').diff(moment.utc('20', 'HH'), 'hours');
+let duration = 0
+if (test_var > 0) {
+  duration = (24 - test_var)
+} else {
+  duration = Math.abs(test_var)
+}
+
+let nextText = duration > 0 ? `${duration}hrs` : `the next hour`
+console.log(nextText)
 
 fetch("/api/countries", {
   method: "GET",

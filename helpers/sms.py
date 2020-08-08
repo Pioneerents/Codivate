@@ -14,7 +14,7 @@ client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 def send_message(sender, recipient, msg, title, name):
     retry = 0
-    while retry <= 10:
+    while retry <= 4:
         try:
             msg = msg.replace("\\n", "\n")
             message = client.messages.create(
@@ -26,6 +26,6 @@ def send_message(sender, recipient, msg, title, name):
         except Exception as e:
             logging.error("Unable to send SMS", e)
             retry += 1
-            logging.info(f"Retrying text. Attempt #{count}")
+            logging.info(f"Retrying text. Attempt #{retry}")
             time.sleep(5)
             continue
