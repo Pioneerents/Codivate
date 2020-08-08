@@ -1,3 +1,5 @@
+import b from "./img/header.jpg";
+
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;

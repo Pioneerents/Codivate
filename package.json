@@ -4,7 +4,8 @@
   "description": "Backend server for codivate",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd Frontend && webpack"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,9 @@
     "log4js": "^6.3.0"
   },
   "devDependencies": {
+    "file-loader": "^6.0.0",
+    "image-webpack-loader": "^6.0.0",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   }

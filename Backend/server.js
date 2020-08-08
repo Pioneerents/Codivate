@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+
 const helmet = require("helmet");
 const fs = require("fs");
 const fileLocation = `${__dirname}/../resources/codivate_local.json`;
