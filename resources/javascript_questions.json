@@ -36,7 +36,7 @@
     "level": 2
   },
   {
-    "tip": "Handy Tip - Always treat numbers and booleans as primitive values and not objects. Because they not only slow down execution, but may produce some nasty side effects!",,
+    "tip": "Handy Tip - Always treat numbers and booleans as primitive values and not objects. Because they not only slow down execution, but may produce some nasty side effects!",
     "level": 2
   },
   {

@@ -12,7 +12,7 @@ SENDER = os.environ['SENDER']
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 
-def send_message(sender, recipient, msg, title):
+def send_message(sender, recipient, msg, title, name):
     retry = 0
     while retry <= 10:
         try:
@@ -20,7 +20,7 @@ def send_message(sender, recipient, msg, title):
             message = client.messages.create(
                 to=recipient,
                 from_="Codivate",
-                body=f"*{title.capitalize()} Tip*\n\n{msg}\n\nEnjoy the content?\nSupport us on https://www.buymeacoffee.com/Codivate")
+                body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nEnjoy the content?\nSupport us on: \nhttps://www.buymeacoffee.com/Codivate")
             logging.info(f"Sent text message to {recipient}!")
             break
         except Exception as e:
