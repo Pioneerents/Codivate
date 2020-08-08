@@ -32,20 +32,22 @@ def send_texts(rows):
         obj = from_dynamodb_to_json(item)
         number = obj['number']
         level = obj['level']
+        name = obj['name'].split(" ")[0]
+        formatted_name = name.capitalize()
 
         if obj['category'] == "python":
-            questions = list(filter(lambda x: x['level'] == level, python_questions))
+            questions = list(filter(lambda x: str(x['level']) == level, python_questions))
             question_id = int(obj['python_id'])
             title = obj['category']
-            message = questions[question_id]
+            message = questions[question_id]["tip"]
         elif obj['category'] == "javascript":
-            questions = list(filter(lambda x: x['level'] == level, javascript_questions))
+            questions = list(filter(lambda x: str(x['level']) == level, javascript_questions))
             question_id = int(obj['javascript_id'])
             title = obj['category']
-            message = questions[question_id]
+            message = questions[question_id]["tip"]
 
         print(f"Sending text message to {number}")
-        send_message(SENDER, obj['number'], message, title)
+        send_message(SENDER, obj['number'], message, title, formatted_name)
 
 
 def main():
@@ -65,11 +67,14 @@ def main():
             tip_id = obj['tip']
             py_id = obj['python_id'] + 1
             js_id = obj['javascript_id'] + 1
+            level = obj['level']
 
             updated_attributes = {
                 "name": obj['name'], "number": obj['number'],
                 "country": obj['country'], "tip": tip_id,
                 "python_id": py_id, "javascript_id": js_id,
+                "level": level,
+                "start_date": obj['start_date'],
                 "category": obj['category']
             }
             if db.get_item("users", key) != False:
