@@ -20,7 +20,7 @@ app.use(express.static("Frontend"));
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
-  const users = [];
+  const users = JSON.parse(fs.readFileSync(fileLocation, "utf-8"));
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
