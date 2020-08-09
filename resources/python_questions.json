@@ -1,6 +1,6 @@
 [
   {
-    "tip": "Please tell me you know how to error handle in Python. Fear not, 'try', 'except' and 'finally' keywords are your best friends. These keywords will allow you to handle your application when an undesirable state appears.",
+    "tip": "Please tell me you know how to error handle in Python.\nFear not, 'try', 'except' and 'finally' keywords are your best friends. These keywords will allow you to handle your application when an undesirable state appears.",
     "level": 1
   },
   {
@@ -28,7 +28,7 @@
     "level": 2
   },
   {
-    "tip": "Seen that scary __init__.py file butt have no clue what it does? They are used to mark directories in your python environment as python package directories.\nIn simple terms, it allows us to import python modules from different directories.",
+    "tip": "Seen that scary __init__.py file but have no clue what it does? They are used to mark directories in your python environment as python package directories.\nIn simple terms, it allows us to import python modules from different directories.",
     "level": 2
   },
   {
