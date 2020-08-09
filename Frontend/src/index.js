@@ -5,23 +5,16 @@ document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
 
-console.log("hello")
-let textSchedule = 19,
-currentDate = new Date(),
-hours = currentDate.getUTCHours(),
-mins = currentDate.getMinutes(),
-diffHours = new Date().setHours(19) - hours,
-diffMins = mins <= 30 ? 30 - mins : 60 - mins,
-minsStr = mins !== "" ? "mins" : ""
-var now = moment();
+let currentDate = new Date(),
+hours = currentDate.getUTCHours()
 
-
-var test_var = moment.utc(`${hours}`, 'HH').diff(moment.utc('20', 'HH'), 'hours');
+// We send texts at 16:00 UTC
+var time_diff = moment.utc(`${hours}`, 'HH').diff(moment.utc('16', 'HH'), 'hours');
 let duration = 0
-if (test_var > 0) {
-  duration = (24 - test_var)
+if (time_diff > 0) {
+  duration = (24 - time_diff)
 } else {
-  duration = Math.abs(test_var)
+  duration = Math.abs(time_diff)
 }
 
 let nextText = duration > 0 ? `${duration}hrs` : `the next hour`

@@ -4,6 +4,7 @@ import logging
 import argparse
 import time
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 
 ACCOUNT_SID = os.environ['ACCOUNT_SID']
 AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
@@ -14,7 +15,7 @@ client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 def send_message(sender, recipient, msg, title, name):
     retry = 0
-    while retry <= 4:
+    while retry <= 3:
         try:
             msg = msg.replace("\\n", "\n")
             message = client.messages.create(
@@ -23,9 +24,11 @@ def send_message(sender, recipient, msg, title, name):
                 body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nEnjoy the content?\nSupport us on: \nhttps://www.buymeacoffee.com/Codivate")
             logging.info(f"Sent text message to {recipient}!")
             break
-        except Exception as e:
-            logging.error("Unable to send SMS", e)
+        except TwilioRestException as e:
+            logging.error(f"Unable to send SMS to {recipient}", e)
+            if e.code == 21211:
+                break
             retry += 1
             logging.info(f"Retrying text. Attempt #{retry}")
-            time.sleep(5)
+            time.sleep(3)
             continue
