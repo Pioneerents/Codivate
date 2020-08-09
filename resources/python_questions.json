@@ -20,11 +20,11 @@
     "level": 1
   },
   {
-    "tip": "Ever heard of negative indexing? Python allows you add negative indexes to structures so that you can easily return the last element of a list.\nFor example list[-1]",
+    "tip": "You can define a function in python using one line. These are often known as lambda functions aka anonymous functions. Try it out!",
     "level": 2
   },
   {
-    "tip": "You can define a function in python using one line. These are often known as lambda functions aka anonymous functions. Try it out!",
+    "tip": "Ever heard of negative indexing? Python allows you add negative indexes to structures so that you can easily return the last element of a list.\nFor example list[-1]",
     "level": 2
   },
   {
