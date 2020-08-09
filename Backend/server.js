@@ -8,6 +8,10 @@ const fileLocation = `${__dirname}/../resources/codivate_local.json`;
 const countries = require("../Frontend/countries.json");
 const tweets = require("./SoftwareTips.json");
 const logger = require("./logger");
+const twilio = require('twilio');
+
+var client = new twilio(process.env.ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
 app.use(helmet());
 app.use(
   bodyParser.text({
@@ -24,6 +28,15 @@ app.post("/submit", async (req, res) => {
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
+
+      // Validate number
+      let valid_number = client.lookups.phoneNumbers(body.number)
+              .fetch({type: ['carrier']})
+              .then(phone_number => console.log(phone_number.carrier));
+      if (valid_number) {
+        logging.error(`${number} is not valid`)
+        //TODO: Mo, Send an error message back to client side here
+      }
       body.tipId = 0;
       users.push(body);
       fs.writeFileSync(fileLocation, JSON.stringify(users), "utf8");
