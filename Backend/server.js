@@ -28,12 +28,12 @@ app.post("/submit", async (req, res) => {
   if (req.body && req.body.length > 4) {
     try {
       const body = JSON.parse(req.body);
-
+      let valid = false
       // Validate number
       let valid_number = client.lookups.phoneNumbers(body.number)
               .fetch({type: ['carrier']})
-              .then(phone_number => console.log(phone_number.carrier));
-      if (valid_number) {
+              .then(phone_number => valid = true);
+      if (!valid_number) {
         logging.error(`${number} is not valid`)
         //TODO: Mo, Send an error message back to client side here
       }
