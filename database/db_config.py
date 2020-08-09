@@ -1,9 +1,5 @@
 users_key_schema = [
     {
-        'AttributeName': 'name',
-        'KeyType': 'HASH'
-    },
-    {
         'AttributeName': 'number',
         'KeyType': 'RANGE'
     }
@@ -11,13 +7,9 @@ users_key_schema = [
 
 users_attributes = [
     {
-        'AttributeName': 'name',
-        'AttributeType': 'S'
-    },
-    {
         'AttributeName': 'number',
         'AttributeType': 'S'
-    },
+    }
 ]
 
 quotes_key_schema = [
