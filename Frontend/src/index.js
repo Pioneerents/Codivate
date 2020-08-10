@@ -25,7 +25,6 @@ async function validation(code = null) {
       phoneNumber.classList.remove("is-valid");
       phoneNumber.classList.add("is-invalid");
     }
-    myobj.parentNode.removeChild(myobj);
   } catch (error) {}
 }
 
