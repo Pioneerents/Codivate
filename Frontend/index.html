@@ -133,20 +133,27 @@
                            </select>
                         </div>
                         <div class="form-group col-10 mx-auto">
-                           <div class="input-group">
+                           <div class="input-group" id="NumberInput">
                               <div class="input-group-prepend">
                                  <span class="input-group-text" id="prepend"></span>
                               </div>
                               <input
                                  minlength="8"
-                                 class="form-control"
+                                 class="form-control "
                                  id="number"
 
                                  min="0"
                                  placeholder="Phone Number"
                                  required
                                  />
+                                 <div class="invalid-feedback" style="font-size: large; color: red;">
+                                    <strong>
+                                       Invalid Number
+                                    </strong>
+                                  </div>
+                         
                            </div>
+               
                         </div>
                         <div class="form-group col-10 mx-auto">
                            <label class="mr-sm-2" for="inlineFormCustomSelect" style="color: white;"><h5>Preference:</h5></label>
