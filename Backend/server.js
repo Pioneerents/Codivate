@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const twilioAPI = require("./TwilioAPI");
 
 const helmet = require("helmet");
 const fs = require("fs");
@@ -50,5 +51,30 @@ app.get("/api/tweets", function (req, res) {
     logger.error(error);
   }
 });
+
+app.get("/api/verifyUser", async function (req, res) {
+  var number = req.query.number;
+  try {
+    let result = await validateUserNumber(number);
+    if (result) {
+      console.log("true from request");
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    logger.error(error);
+  }
+});
+
+async function validateUserNumber(number) {
+  const user = new twilioAPI();
+  if (await user.validateNumber(number)) {
+    console.log("true from VUN");
+    return true;
+  } else {
+    return false;
+  }
+}
 
 module.exports.app = app;

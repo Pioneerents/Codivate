@@ -1,24 +1,68 @@
 import b from "./img/header.jpg";
 import moment from "moment";
-
+spinner.style.display = "none";
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
+var numberField = document.getElementById("prepend");
+var phoneNumber = document.getElementById("number");
+var submit = document.getElementById("submit");
+submit.disabled = true;
+// var spinner = document.getElementById("spinner");
 
-let currentDate = new Date(),
-hours = currentDate.getUTCHours()
+phoneNumber.addEventListener("change", async () => {
+  var numberAndCC = numberField.innerHTML + phoneNumber.value;
+  // spinner.style.display = "block";
+  try {
+    if (await validateNumber(numberAndCC)) {
+      submit.disabled = false;
+      console.log("valid");
+      phoneNumber.classList.remove("is-invalid");
+      phoneNumber.classList.add("is-valid");
+      // spinner.style.display = "none";
+    } else {
+      console.log("submit", submit);
+      submit.disabled = true;
+      console.log("invalid");
+      phoneNumber.classList.remove("is-valid");
+      phoneNumber.classList.add("is-invalid");
+      // spinner.style.display = "none";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-// We send texts at 16:00 UTC
-var time_diff = moment.utc(`${hours}`, 'HH').diff(moment.utc('16', 'HH'), 'hours');
-let duration = 0
-if (time_diff > 0) {
-  duration = (24 - time_diff)
-} else {
-  duration = Math.abs(time_diff)
+async function validateNumber(number) {
+  let result = await fetch(`/api/verifyUser?number=${number}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (result.status === 200) {
+    return true;
+  }
+  console.log("status is ", result.status);
+  return false;
 }
 
-let nextText = duration > 0 ? `${duration}hrs` : `the next hour`
-console.log(nextText)
+let currentDate = new Date(),
+  hours = currentDate.getUTCHours();
+
+// We send texts at 16:00 UTC
+var time_diff = moment
+  .utc(`${hours}`, "HH")
+  .diff(moment.utc("16", "HH"), "hours");
+let duration = 0;
+if (time_diff > 0) {
+  duration = 24 - time_diff;
+} else {
+  duration = Math.abs(time_diff);
+}
+
+let nextText = duration > 0 ? `${duration}hrs` : `the next hour`;
+console.log(nextText);
 
 fetch("/api/countries", {
   method: "GET",
@@ -40,9 +84,8 @@ fetch("/api/countries", {
   });
 });
 
-var submit = document.getElementById("submit");
 var signup = document.getElementById("signuptext");
-var numberField = document.getElementById("prepend");
+
 dropDown.onchange = function () {
   let chosenValue = dropDown.options[dropDown.selectedIndex].value;
   let code;
@@ -61,7 +104,7 @@ function logSubmit(event) {
   event.preventDefault();
 
   let name = document.getElementById("name").value;
-  let number = numberField.innerHTML + document.getElementById("number").value;
+  let number = numberField.innerHTML + phoneNumber.value;
   console.log("number is", number, nextText);
   var chosen = document.getElementById("prefix");
   var category = document.getElementById("categories");

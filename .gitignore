@@ -6,3 +6,6 @@ helpers/__pycache__/
 # node
 node_modules/
 
+#Environment Variables
+.env
+
