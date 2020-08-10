@@ -11,9 +11,14 @@ submit.disabled = true;
 phoneNumber.addEventListener("change", validation);
 
 async function validation(code = null) {
-  var numberAndCC = code
-    ? code + phoneNumber.value
-    : numberField.value + phoneNumber.value;
+  var numberAndCC =
+    code == null
+      ? code + phoneNumber.value
+      : numberField.innerHTML + phoneNumber.value;
+
+  if (phoneNumber.value.length == 0) {
+    return;
+  }
 
   try {
     if (await validateNumber(numberAndCC)) {
