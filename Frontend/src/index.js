@@ -1,6 +1,5 @@
 import b from "./img/header.jpg";
 import moment from "moment";
-
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
@@ -19,20 +18,15 @@ async function validation(code = null) {
   try {
     if (await validateNumber(numberAndCC)) {
       submit.disabled = false;
-      console.log("valid");
       phoneNumber.classList.remove("is-invalid");
       phoneNumber.classList.add("is-valid");
     } else {
-      console.log("submit", submit);
       submit.disabled = true;
-      console.log("invalid");
       phoneNumber.classList.remove("is-valid");
       phoneNumber.classList.add("is-invalid");
     }
     myobj.parentNode.removeChild(myobj);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function validateNumber(number) {
@@ -45,7 +39,7 @@ async function validateNumber(number) {
   if (result.status === 200) {
     return true;
   }
-  console.log("status is ", result.status);
+
   return false;
 }
 
@@ -64,7 +58,6 @@ if (time_diff > 0) {
 }
 
 let nextText = duration > 0 ? `${duration}hrs` : `the next hour`;
-console.log(nextText);
 
 fetch("/api/countries", {
   method: "GET",
@@ -73,7 +66,6 @@ fetch("/api/countries", {
   },
 }).then((response) => {
   if (response.status !== 200) {
-    console.log("error fetching countries");
     return;
   }
   response.json().then((data) => {
@@ -108,7 +100,6 @@ function logSubmit(event) {
 
   let name = document.getElementById("name").value;
   let number = numberField.innerHTML + phoneNumber.value;
-  console.log("number is", number, nextText);
   var chosen = document.getElementById("prefix");
   var category = document.getElementById("categories");
   var country = chosen.options[chosen.selectedIndex].value;
@@ -122,7 +113,7 @@ function logSubmit(event) {
     category: chosenCategory,
     level: chosenLevel,
   };
-  console.log(obj);
+
   if (number.length < 8 || name.length < 1) {
   } else {
     try {
@@ -140,9 +131,7 @@ function logSubmit(event) {
       signup.innerHTML = `Thank you for signing up!\nYou'll get your first tip in ${nextText}`;
 
       submit.disabled = true;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 }
 
