@@ -17,6 +17,8 @@ async function validation(code = null) {
       : numberField.innerHTML + phoneNumber.value;
 
   if (phoneNumber.value.length == 0) {
+    phoneNumber.classList.remove("is-invalid");
+    phoneNumber.classList.remove("is-valid");
     return;
   }
 
