@@ -1,6 +1,6 @@
 import b from "./img/header.jpg";
 import moment from "moment";
-spinner.style.display = "none";
+
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
 let countryList;
@@ -8,30 +8,32 @@ var numberField = document.getElementById("prepend");
 var phoneNumber = document.getElementById("number");
 var submit = document.getElementById("submit");
 submit.disabled = true;
-// var spinner = document.getElementById("spinner");
 
-phoneNumber.addEventListener("change", async () => {
-  var numberAndCC = numberField.innerHTML + phoneNumber.value;
-  // spinner.style.display = "block";
+phoneNumber.addEventListener("change", validation);
+
+async function validation(code = null) {
+  var numberAndCC = code
+    ? code + phoneNumber.value
+    : numberField.value + phoneNumber.value;
+
   try {
     if (await validateNumber(numberAndCC)) {
       submit.disabled = false;
       console.log("valid");
       phoneNumber.classList.remove("is-invalid");
       phoneNumber.classList.add("is-valid");
-      // spinner.style.display = "none";
     } else {
       console.log("submit", submit);
       submit.disabled = true;
       console.log("invalid");
       phoneNumber.classList.remove("is-valid");
       phoneNumber.classList.add("is-invalid");
-      // spinner.style.display = "none";
     }
+    myobj.parentNode.removeChild(myobj);
   } catch (error) {
     console.log(error);
   }
-});
+}
 
 async function validateNumber(number) {
   let result = await fetch(`/api/verifyUser?number=${number}`, {
@@ -98,6 +100,7 @@ dropDown.onchange = function () {
     }
     numberField.innerHTML = code;
   });
+  validation(code);
 };
 
 function logSubmit(event) {
