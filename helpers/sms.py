@@ -9,18 +9,20 @@ from twilio.base.exceptions import TwilioRestException
 ACCOUNT_SID = os.environ['ACCOUNT_SID']
 AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 SENDER = os.environ['SENDER']
+US_NUMBER = os.environ['US_NUM']
 
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
-excl_countries = ["India", "Pakistan", "United States", "Netherlands"]
+excl_countries = ["United States", "Canada"]
 
-def send_message(sender, recipient, msg, title, name):
+def send_message(sender, recipient, msg, title, name, country):
     retry = 0
     while retry <= 3:
         try:
+            from_num = "Codivate" if country not in excl_countries else US_NUMBER
             msg = msg.replace("\\n", "\n")
             message = client.messages.create(
                 to=recipient,
-                from_="Codivate",
+                from_=from_num,
                 body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nEnjoy the content?\nSupport us on: \nhttps://www.buymeacoffee.com/Codivate")
             logging.info(f"Sent text message to {recipient}!")
             break

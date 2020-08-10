@@ -4,6 +4,10 @@
     "level": 1
   },
   {
+    "tip": "You need a unique list of values so you have a condition to filter through your list? Why don't you consider using the Set data structure. Sets store unique values so you will not have to worry about extra validation.",
+    "level": 1
+  },
+  {
     "tip": "Stop writing endless if statements to sort your lists. Python provides a function sorted() that will return a sorted list of items.",
     "level": 1
   },
@@ -16,15 +20,11 @@
     "level": 1
   },
   {
-    "tip": "You need a unique list of values so you have a condition to filter through your list? Why don't you consider using the Set data structure. Sets store unique values so you will not have to worry about extra validation.",
-    "level": 1
-  },
-  {
-    "tip": "You can define a function in python using one line. These are often known as lambda functions aka anonymous functions. Try it out!",
+    "tip": "Ever heard of negative indexing? Python allows you add negative indexes to structures so that you can easily return the last element of a list.\nFor example list[-1]",
     "level": 2
   },
   {
-    "tip": "Ever heard of negative indexing? Python allows you add negative indexes to structures so that you can easily return the last element of a list.\nFor example list[-1]",
+    "tip": "You can define a function in python using one line. These are often known as lambda functions aka anonymous functions. Try it out!",
     "level": 2
   },
   {
