@@ -50,7 +50,6 @@ def send_texts(rows):
         send_message(SENDER, obj['number'], message, title, formatted_name, obj['country'])
         time.sleep(2)
 
-
 def main():
     try: 
         db = setup_db_conn()
