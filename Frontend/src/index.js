@@ -1,4 +1,3 @@
-import b from "./img/header.jpg";
 import moment from "moment";
 document.title = "Codivate";
 var dropDown = document.getElementById("prefix");
@@ -126,12 +125,6 @@ function logSubmit(event) {
       fetch("/submit", {
         method: "POST",
         body: JSON.stringify(obj),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-          "Access-Control-Max-Age": 2592000, // 30 days
-          /** add other headers as per requirement */
-        },
       });
       submit.innerHTML = "Submitted";
       signup.innerHTML = `Thank you for signing up!\nYou'll get your first tip in ${nextText}`;

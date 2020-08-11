@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use(express.static("Frontend"));
-app.use('contribute', express.static("Frontend/contribute"))
+// app.use('contribute', express.static("Frontend/contribute"))
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");
