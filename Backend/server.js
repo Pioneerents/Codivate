@@ -19,7 +19,8 @@ app.use(
 );
 
 app.use(express.static("Frontend"));
-app.use("contribute", express.static("Frontend/contribute"));
+app.use("/senna", express.static("Frontend/senna.html"));
+app.use("/contribute", express.static("Frontend/contribute.html"));
 
 app.post("/submit", async (req, res) => {
   logger.info("Received a submit request");

@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: {
     index: "./Frontend/src/index.js",
-    contribute: "./Frontend/contribute/contribute.js",
+    contribute: "./Frontend/contribute.js",
   },
   output: {
     filename: "[name].js",
