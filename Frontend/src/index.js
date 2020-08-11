@@ -143,3 +143,25 @@ function logSubmit(event) {
 
 const form = document.getElementById("form");
 form.addEventListener("submit", logSubmit);
+
+/* Contribution */
+// alert("here");
+// const contributionForm = document.getElementById("contributionForm");
+
+// contributionForm.addEventListener("submit", logContributionSubmit);
+
+// function logContributionSubmit(event) {
+//   alert("gg");
+//   event.preventDefault();
+//   const contributionName = document.getElementById("contributionName").value;
+//   const contributionCategories = document.getElementById(
+//     "contributionCategories"
+//   ).value;
+//   const contributionLevel = document.getElementById("contributionLevel").value;
+//   const contributionTip = document.getElementById("contributionTip").value;
+
+//   console.log(contributionName);
+//   console.log(contributionCategories);
+//   console.log(contributionLevel);
+//   console.log(contributionTip);
+// }
