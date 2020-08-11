@@ -8,23 +8,23 @@
          />
       <meta name="description" content="" />
       <meta name="author" content="" />
-      <link rel="icon" type="image/png" href="src/img/icon.png"/>
+      <link rel="icon" type="image/png" href="../src/img/icon.png"/>
       <!-- Bootstrap core CSS -->
-      <link href="src/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="../src/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
       <!-- Custom fonts for this template -->
-      <link href="src/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+      <link href="../src/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
       <link
-         href="src/vendor/simple-line-icons/css/simple-line-icons.css"
+         href="../src/vendor/simple-line-icons/css/simple-line-icons.css"
          rel="stylesheet"
          type="text/css"
          />
       <link
-         href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+         href="../https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
 
          type="text/css"
          />
       <!-- Custom styles for this template -->
-      <link href="src/css/landing-page.min.css" rel="stylesheet" />
+      <link href="../src/css/landing-page.min.css" rel="stylesheet" />
    </head>
    <body>
       <!-- Navigation -->
@@ -40,11 +40,12 @@
                </button>
                <div class="collapse navbar-collapse" id="navbarNav">
                  <ul class="navbar-nav">
-                   <li class="nav-item active">
-                     <a class="nav-link" href="/">Subscribe <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                     <a class="nav-link" href="/">Subscribe <span class="sr-only"></span></a>
                    </li>
-                   <li class="nav-item">
-                     <a class="nav-link" href="/contribute">Contribute</a>
+
+                     <li class="nav-item active">
+                     <a class="nav-link" href="/contribute">Contribute <span class="sr-only">(current)</span></a>
                    </li>
                  </ul>
                </div>
@@ -107,96 +108,65 @@
          </div>
       </nav>
       <!-- Masthead -->
-      <header class="masthead text-white text-center">
+      <header class="masthead2 text-white text-center">
          
          <div class="overlay"></div>
          <div class="container">
             <div class="row">
                <div class="col-xl-9 mx-auto" style="padding-bottom: 3%">
                   <h1 class="mb-5 h1" style="text-shadow: 1.5px 1.5px #000000">
-                    <strong> Subscribe for free Coding Tips.</strong>
+                    <strong> Contribute with your own tip!</strong>
                   </h1>
                </div>
                <div class="container">
                   <div class="row">
                     <div class="col-md-4" style="margin-top: 5%; margin-bottom: 8%">
-                      <p>
-                        Supports:
-                      </p>
-                      <img src="src/img/javascript.svg" alt="">
-                      <img src="src/img/python.svg" alt="">
+                   
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="formSection">
                       <form id="form">
                         <div class="form-group col-10 mx-auto">
                            <input
                               type="text"
                               class="form-control"
-                              id="name"
-                              placeholder="Your Name"
+                              id="contributionName"
+                              placeholder="Name or Twitter Handle"
                               pattern="[a-zA-Z\- ]+"
                               required
                               />
                         </div>
              
-                        <div class="form-group col-10 mx-auto">
-                      
-                           <select id="prefix" class="form-control" required>
-                              <option value="">Country</option>
-                           </select>
-                        </div>
-                        <div class="form-group col-10 mx-auto">
-                           <div class="input-group" id="NumberInput">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text" id="prepend"></span>
-                              </div>
-                              <input
-                                 minlength="8"
-                                 class="form-control "
-                                 id="number"
+         
 
-                                 min="0"
-                                 placeholder="Phone Number"
-                                 required
-                                 />
-                                 <div class="invalid-feedback" style="font-size: large; color: red;">
-                                    <strong>
-                                       Invalid Number
-                                    </strong>
-                                  </div>
-                         
-                           </div>
-               
-                        </div>
                         <div class="form-group col-10 mx-auto">
-                           <label class="mr-sm-2" for="inlineFormCustomSelect" style="color: white; text-shadow: 1.5px 1.5px #000000;"><h5>Preference:</h5></label>
-                           <select id="categories" class="form-control" required>
+                
+                           <select id="contributionCategories" class="form-control" required>
                               <option value="" disabled selected>Language</option>
                               <option value="javascript">JavaScript</option>
                               <option value="python">Python
                               </option>
                            </select>
                         </div>
-                        <div class="form-group col-10 mx-auto">
-                           <select id="level" class="form-control" required>
-                              <option value="" disabled selected>Level</option>
-                              <option value=1>Just starting out</option>
-                              <option value=2>Comfortable</option>
-                              <option value=3>Pssht! Who needs tips?</option>
-                           </select>
-                        </div>
-                        
+                        <div class="form-group col-12 mx-auto">
+                            <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                            <h5 style="text-shadow: 1.5px 1.5px #000000">Tip:</h5>
+                            <textarea class="form-control" id="contributionTip" placeholder="Max 260 characters" rows="4" required></textarea>
+                            <div class="invalid-feedback" style="font-size: large; color: red;">
+                              <strong id="invalidMessage" style="text-shadow: 2px 2px #000000;">
+                              </strong>
+                            </div>
+                           </div>
                 
-                        <button type="submit" class="btn btn-primary" id="submit" style="margin-top: 5%; margin-bottom: 5%">
-                        Subscribe
+                        <button type="submit" method="post" action="/contribute" class="btn btn-primary" id="submit" style="margin-top: 5%; margin-bottom: 5%">
+                        Contribute
                         </button>
-                        <h4 id="signuptext"></h4>
+                        <h4 id="contributionText"></h4>
                      </form>
                     </div>
                    
                     <div class="col-md-4">
                        
-                      <img src="src/img/iphoneAndroidMerged.png" class="img-fluid" alt="iPhone and Android with codivate text" style="max-width: 120%"> 
+                      
                     </div>
                     
                   </div>
@@ -216,7 +186,7 @@
                      <div class="features-icons-icon d-flex">
                         <i class="icon-user m-auto text-primary"></i>
                      </div>
-                     <h3 class="h3">Register</h3>
+                     <h3 class="h3">Enter name or Twitter</h3>
                      <p class="lead mb-0">
                         Subscribe above using our super simple form.
                      </p>
@@ -227,7 +197,7 @@
                      <div class="features-icons-icon d-flex">
                         <i class="icon-notebook m-auto text-primary"></i>
                      </div>
-                     <h3 class="h3">Choose category & level</h3>
+                     <h3 class="h3">Choose category</h3>
                      <p class="lead mb-0">
                         Choose the programming language of your choice from list.
                      </p>
@@ -238,7 +208,7 @@
                      <div class="features-icons-icon d-flex">
                         <i class="icon-check m-auto text-primary"></i>
                      </div>
-                     <h3 class="h3">You're all set</h3>
+                     <h3 class="h3">Contribute</h3>
                      <p class="lead mb-0">
                         Start receiving bite-sized daily tips straight to your mobile phone!
                      </p>
@@ -273,7 +243,7 @@
                   <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                      <img
                         class="img-fluid rounded-circle mb-3"
-                        src="src/img/mohamed.png"
+                        src="../src/img/mohamed.png"
                         alt=""
                         />
                      <h5>Mo Sheikh</h5>
@@ -281,14 +251,14 @@
                         Full Stack Software Engineer
                      </p>
                      <br>
-                     <a href="https://twitter.com/CodeWithMo">  <i class="icon-social-twitter m-auto text-primary"></i>&nbsp;@CodeWithMo</a> 
+                     <a href="../https://twitter.com/CodeWithMo">  <i class="icon-social-twitter m-auto text-primary"></i>&nbsp;@CodeWithMo</a> 
                   </div>
                </div>
                <div class="col-sm">
                   <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                      <img
                         class="img-fluid rounded-circle mb-3"
-                        src="src/img/senna.png"
+                        src="../src/img/senna.png"
                         alt=""
                         />
                      <h5>Senna Semakula-Buuza</h5>
@@ -296,7 +266,7 @@
                         Full Stack Software Engineer
                      </p>
                      <br>
-                     <a href="https://twitter.com/sennacode">  <i class="icon-social-twitter m-auto text-primary"></i>&nbsp;@SennaCode</a> 
+                     <a href="../https://twitter.com/sennacode">  <i class="icon-social-twitter m-auto text-primary"></i>&nbsp;@SennaCode</a> 
                   </div>
                </div>
             </div>
@@ -318,7 +288,7 @@
       </footer>
       <!-- Bootstrap core JavaScript -->
 
-      <script src="./dist/index.js" type="module"></script>
+      <script src="dist/contribute.js" type="module"></script>
    </body>
 </html>
 
