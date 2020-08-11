@@ -32,7 +32,6 @@ def send_message(sender, recipient, msg, title, name, country):
             logging.info(f"Sent text message to {recipient}!")
             break
         except TwilioRestException as e:
-            print("we get here")
             logging.error(f"Unable to send SMS to {recipient}", e)
             if e.code == 21211:
                 print(f"{recipient} is invalid. Not sending")
