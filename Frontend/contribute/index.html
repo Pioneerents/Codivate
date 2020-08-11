@@ -114,7 +114,7 @@
          <div class="container">
             <div class="row">
                <div class="col-xl-9 mx-auto" style="padding-bottom: 3%">
-                  <h1 class="mb-5 h1">
+                  <h1 class="mb-5 h1" style="text-shadow: 1.5px 1.5px #000000">
                     <strong> Contribute with your own tip!</strong>
                   </h1>
                </div>
@@ -149,11 +149,10 @@
                         </div>
                         <div class="form-group col-12 mx-auto">
                             <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
-                            <h5>Tip:</h5>
-                            <textarea class="form-control" id="contributionTip" placeholder="Your coding tip" rows="4" required maxlength="140"></textarea>
+                            <h5 style="text-shadow: 1.5px 1.5px #000000">Tip:</h5>
+                            <textarea class="form-control" id="contributionTip" placeholder="Max 260 characters" rows="4" required></textarea>
                             <div class="invalid-feedback" style="font-size: large; color: red;">
-                              <strong>
-                                 Tip must be at least 10 characters
+                              <strong id="invalidMessage" style="text-shadow: 2px 2px #000000;">
                               </strong>
                             </div>
                            </div>
