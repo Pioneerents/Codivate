@@ -11,9 +11,18 @@ AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 SENDER = os.environ['SENDER']
 US_NUMBER = os.environ['US_NUM']
 SERVICE_SID = os.environ['SERVICE_SID']
+ALPHA_SERVICE_SID = os.environ['ALPHA_SERVICE_SID']
 
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 excl_countries = ["United States", "Canada"]
+
+def create_alpha_id():
+    alpha_sender = client.messaging \
+                        .services(ALPHA_SERVICE_SID) \
+                        .alpha_senders \
+                        .create(alpha_sender='Codivate')
+
+    print(alpha_sender.sid)
 
 def send_message(sender, recipient, msg, title, name, country):
     retry = 0
