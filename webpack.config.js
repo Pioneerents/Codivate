@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     index: "./Frontend/src/index.js",
     contribute: "./Frontend/contribute.js",
+    optout: "./Frontend/optout.js",
   },
   output: {
     filename: "[name].js",
