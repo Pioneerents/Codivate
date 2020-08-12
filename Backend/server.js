@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const fs = require("fs");
 const fileLocation = `${__dirname}/../resources/codivate_local.json`;
 const contributeFile = `${__dirname}/../resources/contributers.json`;
+const optoutList = `${__dirname}/../resources/opt_out.json`;
 const countries = require("../Frontend/countries.json");
 const tweets = require("./SoftwareTips.json");
 const logger = require("./logger");
@@ -19,7 +20,7 @@ app.use(
 );
 
 app.use(express.static("Frontend"));
-app.use("/senna", express.static("Frontend/senna.html"));
+app.use("/optout", express.static("Frontend/optout.html"));
 app.use("/contribute", express.static("Frontend/contribute.html"));
 
 app.post("/submit", async (req, res) => {
@@ -54,6 +55,20 @@ app.post("/contribute", async (req, res) => {
   }
 });
 
+app.post("/optout", async (req, res) => {
+  logger.info("Received an optout request");
+  const leavers = JSON.parse(fs.readFileSync(optoutList, "utf-8"));
+  if (req.body && req.body.length > 4) {
+    try {
+      const body = JSON.parse(req.body);
+      leavers.push(body);
+      fs.writeFileSync(optoutList, JSON.stringify(leavers), "utf8");
+      res.sendStatus(200);
+    } catch (error) {
+      logger.error(error);
+    }
+  }
+});
 app.get("/api/countries", function (req, res) {
   try {
     res.send(countries);
