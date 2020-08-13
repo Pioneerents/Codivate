@@ -47,7 +47,7 @@ def send_texts(rows):
             message = questions[question_id]["tip"]
 
         print(f"Sending text message to {number}")
-        send_message(SENDER, obj['number'], message, title, formatted_name, obj['country'])
+        send_message(SENDER, obj['number'], message, title, formatted_name, obj['country'], obj['category'])
         time.sleep(2)
 
 def main():

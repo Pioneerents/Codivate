@@ -14,16 +14,17 @@ US_NUMBER = os.environ['US_NUM']
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 excl_countries = ["United States", "Canada"]
 
-def send_message(sender, recipient, msg, title, name, country):
+def send_message(sender, recipient, msg, title, name, country, lang):
     retry = 0
     while retry <= 1:
         try:
             from_num = "Codivate" if country not in excl_countries else US_NUMBER
+            author = "@SennaCode" if lang == "python" else "Lateef."
             msg = msg.replace("\\n", "\n")
             message = client.messages.create(
                 to=recipient,
                 from_=from_num,
-                body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nTip By Lateef\n\nWe are in beta so we will be back soon!\nIf you wish to unsubscribe for future tips, please follow codivate.io/optout")
+                body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nTip by {author}\n\nWe are in beta so we will be back soon!\nIf you wish to unsubscribe for future tips, please follow codivate.io/optout")
             logging.info(f"Sent text message to {recipient}!")
             break
         except TwilioRestException as e:
