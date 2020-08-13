@@ -23,7 +23,7 @@ def send_message(sender, recipient, msg, title, name, country):
             message = client.messages.create(
                 to=recipient,
                 from_=from_num,
-                body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nEnjoy the content?\nSupport us on: \nhttps://www.buymeacoffee.com/Codivate")
+                body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nTip By Lateef\n\nWe are in beta so we will be back soon!\nIf you wish to unsubscribe for future tips, please follow codivate.io/optout")
             logging.info(f"Sent text message to {recipient}!")
             break
         except TwilioRestException as e:
@@ -36,7 +36,7 @@ def send_message(sender, recipient, msg, title, name, country):
                 client.messages.create(
                     to=recipient,
                     from_=SENDER,
-                    body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nEnjoy the content?\nSupport us on: \nhttps://www.buymeacoffee.com/Codivate")
+                    body=f"*{title.capitalize()} Tip*\n\nHey {name},\n\n{msg}\n\nTip By Lateef.\n\nWe are in beta so will be back soon!\n\nIf you wish to unsubscribe for futures updates, please visit codivate.io/optout")
                 logging.info(f"Sent text message to {recipient}!")
                 break
             retry += 1

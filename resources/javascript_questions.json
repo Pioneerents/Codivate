@@ -33,7 +33,8 @@
     "level": 1
   },
   {
-    "tip": "The Array.from() static method creates a new, shallow-copied Array instance from a string, array-like or iterable object.\n\nExample:\nconsole.log(Array.from('codivate'));\n// [\"c\", \"o\", \"d\", \"i\", \"v\", \"a\", \"t\", \"e\"]"
+    "tip": "The Array.from() static method creates a new, shallow-copied Array instance from a string, array-like or iterable object.\n\nExample:\nconsole.log(Array.from('codivate'));\n// [\"c\", \"o\", \"d\", \"i\", \"v\", \"a\", \"t\", \"e\"]",
+    "level": 2
   },
   {
     "tip": "Handy tip - Always place JS scripts at the bottom of the page. - This gives the HTML time to load before any JavaScript loads, which can prevent errors and speed up the website response time.",

@@ -1,6 +1,7 @@
 const form = document.getElementById("form");
 const name = document.getElementById("name").value;
 const number = document.getElementById("number");
+const reason = document.getElementById("optoutText");
 const dropDown = document.getElementById("prefix");
 const numberField = document.getElementById("prepend");
 const signup = document.getElementById("signuptext");
@@ -47,6 +48,7 @@ function logSubmit(event) {
     const obj = {
       name: name,
       number: numberField.innerHTML + number.value,
+      reason: reason.value
     };
     fetch("/optout", {
       method: "POST",
