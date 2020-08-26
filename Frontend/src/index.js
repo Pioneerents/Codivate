@@ -119,7 +119,7 @@ function logSubmit(event) {
     level: chosenLevel,
   };
 
-  if (number.length < 8 || name.length < 1) {
+  if (name.length < 1) {
   } else {
     try {
       fetch("/submit", {
@@ -127,7 +127,7 @@ function logSubmit(event) {
         body: JSON.stringify(obj),
       });
       submit.innerHTML = "Submitted";
-      signup.innerHTML = `Thank you for signing up!\nYou'll get your first tip in ${nextText}`;
+      signup.innerHTML = `Thank you for signing up!\nCodivate is currently on pause but we'll be back soon!`;
 
       submit.disabled = true;
     } catch (error) {}
