@@ -127,7 +127,7 @@ function logSubmit(event) {
         body: JSON.stringify(obj),
       });
       submit.innerHTML = "Submitted";
-      signup.innerHTML = `Thank you for signing up!\nYou'll get your first tip in ${nextText}`;
+      signup.innerHTML = `Thank you for signing up!\nCodivate is currently on pause but we'll be back soon!`;
 
       submit.disabled = true;
     } catch (error) {}
