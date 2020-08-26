@@ -119,7 +119,7 @@ function logSubmit(event) {
     level: chosenLevel,
   };
 
-  if (number.length < 8 || name.length < 1) {
+  if (name.length < 1) {
   } else {
     try {
       fetch("/submit", {
